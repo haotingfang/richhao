@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.mapper.UserInfoMapper">
+
+    <resultMap type="com.example.common.core.domain.entity.UserInfo" id="UserInfoResult">
+        <id property="userId" column="user_id"/>
+        <result property="openId" column="open_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="userType" column="user_type"/>
+        <result property="gender" column="gender"/>
+        <result property="language" column="language"/>
+        <result property="country" column="country"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="avatarUrl" column="avatar_url"/>
+        <result property="password" column="password"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <!--<association property="dept"    column="dept_id" javaType="SysDept" resultMap="deptResult" />
+        <collection  property="roles"   javaType="java.util.List"        resultMap="RoleResult" />-->
+    </resultMap>
+
+
+
+
+    <sql id="selectUserVoSimple">
+        select u.user_id, u.open_id, u.user_name, u.nick_name, u.user_type, u.gender, u.language,
+        u.country, u.province, u.city, u.email, u.phone_number, u.avatar_url, u.password,
+        u.status, u.del_flag, u.create_by, u.create_time, u.update_by, u.update_time
+        from user_info u
+    </sql>
+
+    <select id="selectUserByUserName" parameterType="String" resultMap="UserInfoResult">
+        <include refid="selectUserVoSimple"/>
+        where u.user_name = #{userName}
+    </select>
+
+    <select id="selectUserByOpenId" parameterType="String" resultMap="UserInfoResult">
+        <include refid="selectUserVoSimple"/>
+        where u.open_id = #{openId}
+    </select>
+
+    <update id="updateUserById" parameterType="com.example.common.core.domain.entity.UserInfo">
+        update user_info
+        <set>
+            <if test="weixinOpenid != null">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="addUser" parameterType="com.example.common.core.domain.entity.UserInfo">
+        insert into user_info(
+            open_id,
+            user_name,
+            nick_name,
+            user_type,
+            gender,
+            language,
+            country,
+            province,
+            city,
+            email,
+            phone_number,
+            avatar_url,
+            password,
+            status,
+            del_flag,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+            )
+        values (
+            #{openId,jdbcType=VARCHAR},
+            #{userName,jdbcType=VARCHAR},
+            #{nickName,jdbcType=VARCHAR},
+            #{userType,jdbcType=INTEGER},
+            #{gender,jdbcType=INTEGER},
+            #{language,jdbcType=VARCHAR},
+            #{country,jdbcType=VARCHAR},
+            #{province,jdbcType=VARCHAR},
+            #{city,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{phoneNumber,jdbcType=VARCHAR},
+            #{avatarUrl,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{status,jdbcType=INTEGER},
+            #{delFlag,jdbcType=INTEGER},
+            #{createBy,jdbcType=INTEGER},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateBy,jdbcType=INTEGER},
+            #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+
+</mapper>

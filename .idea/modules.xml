@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hao-api/hao-api.iml" filepath="$PROJECT_DIR$/hao-api/hao-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hao-common/hao-common.iml" filepath="$PROJECT_DIR$/hao-common/hao-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hao-dao/hao-dao.iml" filepath="$PROJECT_DIR$/hao-dao/hao-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hao-framework/hao-framework.iml" filepath="$PROJECT_DIR$/hao-framework/hao-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hao-web/hao-web.iml" filepath="$PROJECT_DIR$/hao-web/hao-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/richhao.iml" filepath="$PROJECT_DIR$/richhao.iml" />
+    </modules>
+  </component>
+</project>

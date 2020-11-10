@@ -1,0 +1,88 @@
+# ������������
+server:
+  # ��������HTTP�˿ڣ�Ĭ��Ϊ8080
+  port: 8080
+  servlet:
+    # Ӧ�õķ���·��
+    context-path: /
+  tomcat:
+    # tomcat��URI����
+    uri-encoding: UTF-8
+    # tomcat����߳�����Ĭ��Ϊ200
+    max-threads: 800
+    # Tomcat������ʼ�����߳�����Ĭ��ֵ25
+    min-spare-threads: 30
+
+
+# ��־����
+logging:
+  level:
+    com.example: debug
+    org.springframework: warn
+
+
+# Spring����
+spring:
+  profiles:
+    active: druid
+  # redis ����
+  redis:
+    # ��ַ
+    host: localhost
+    # �˿ڣ�Ĭ��Ϊ6379
+    port: 6379
+    # ����
+    password:
+    # ���ӳ�ʱʱ��
+    timeout: 10s
+    lettuce:
+      pool:
+        # ���ӳ��е���С��������
+        min-idle: 0
+        # ���ӳ��е�����������
+        max-idle: 8
+        # ���ӳص�������ݿ�������
+        max-active: 8
+        # #���ӳ���������ȴ�ʱ�䣨ʹ�ø�ֵ��ʾû�����ƣ�
+        max-wait: -1ms
+
+
+# token����
+token:
+  # �����Զ����ʶ
+  header: Authorization
+  # ������Կ
+  secret: abcdefghijklmnopqrstuvwxyz
+  # ������Ч�ڣ�Ĭ��30���ӣ�
+  expireTime: 30
+
+
+# MyBatis����
+mybatis:
+  # ����ָ��������
+  typeAliasesPackage: com.example.**.domain
+  # ����mapper��ɨ�裬�ҵ����е�mapper.xmlӳ���ļ�
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # ����ȫ�ֵ������ļ�
+  configLocation: classpath:mybatis/mybatis-config.xml
+
+
+# PageHelper��ҳ���
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+# Swagger����
+swagger:
+  # �Ƿ���swagger
+  enabled: true
+  # ����ǰ׺
+  pathMapping: /dev-api
+
+wx:
+  appid: wx685701811311318a
+  secret: 73e6380863a63482b39859bf4e852cde
+  defaultPassword: richfu
