@@ -252,7 +252,6 @@ create table oper_log (
   oper_name         varchar(50)     default ''                 comment '操作人员',
   dept_name         varchar(50)     default ''                 comment '部门名称',
   oper_url          varchar(255)    default ''                 comment '请求URL',
-  oper_ip           varchar(50)     default ''                 comment '主机地址',
   oper_location     varchar(255)    default ''                 comment '操作地点',
   oper_param        varchar(2000)   default ''                 comment '请求参数',
   json_result       varchar(2000)   default ''                 comment '返回参数',
