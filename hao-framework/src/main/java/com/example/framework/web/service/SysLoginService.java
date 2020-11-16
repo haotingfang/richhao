@@ -9,6 +9,7 @@ import com.example.common.core.domain.vo.UserInfoVo;
 import com.example.common.enums.CommonStatus;
 import com.example.common.enums.DelFlag;
 import com.example.common.enums.UserType;
+import com.example.common.utils.ConvertUtils;
 import com.example.common.utils.EnumUtil;
 import com.example.common.utils.SecurityUtils;
 import com.example.dao.mapper.UserInfoMapper;
@@ -25,14 +26,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class SysLoginService {
@@ -65,6 +64,8 @@ public class SysLoginService {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+            Collection<? extends GrantedAuthority> c = authentication.getAuthorities();
+            logger.info("------c:"+c);
             String token = tokenService.createToken(loginUser);
             Map res = new HashMap<>();
             res.put("token", token);
@@ -147,11 +148,7 @@ public class SysLoginService {
             //更新用户信息
 
         }
-        UserInfoVo userInfoVo = new UserInfoVo();
-        BeanUtils.copyProperties(userInfo, userInfoVo);
-        userInfoVo.setUserTypeText(EnumUtil.getByCode(String.valueOf(userInfo.getUserType()), UserType.class));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        userInfoVo.setCreateTime(userInfo.getCreateTime());
+        UserInfoVo userInfoVo = ConvertUtils.convertUserInfo(userInfo);
         logger.info("新增或更新用户成功 userInfo：[{}] ", userInfoVo);
         return userInfoVo;
     }

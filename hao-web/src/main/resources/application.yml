@@ -80,7 +80,7 @@ swagger:
   # �Ƿ���swagger
   enabled: true
   # ����ǰ׺
-  pathMapping: /dev-api
+  pathMapping: /
 
 wx:
   appid: wx685701811311318a

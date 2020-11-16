@@ -26,7 +26,7 @@
 
 
 
-    <select id="selectRoleByUserId" parameterType="String" resultMap="RoleResult">
+    <select id="selectRoleByUserId" parameterType="Long" resultMap="RoleResult">
         <include refid="selectRoleVo"></include>
         where  role.status = '0' and role.del_flag ='0'
         and user_info.user_id=#{userId}

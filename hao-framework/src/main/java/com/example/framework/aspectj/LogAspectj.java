@@ -7,6 +7,7 @@ import com.example.common.core.domain.entity.SysOperLog;
 import com.example.common.core.domain.model.LoginUser;
 import com.example.common.enums.BusinessStatus;
 import com.example.common.utils.ServletUtils;
+import com.example.common.utils.SpringUtils;
 import com.example.common.utils.StringUtils;
 import com.example.framework.manager.AsyncManager;
 import com.example.framework.manager.factory.AsyncFactory;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 @Aspect
@@ -64,6 +66,8 @@ public class LogAspectj {
         }
 
         LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+//        LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+
 
         SysOperLog sysOperLog = new SysOperLog();
         if (loginUser != null) {
@@ -71,7 +75,7 @@ public class LogAspectj {
         }
         sysOperLog.setStatus(BusinessStatus.SUCCESS.ordinal());
 
-        sysOperLog.setJsonResult(jsonResult.toString());
+        sysOperLog.setJsonResult(JSON.toJSONString(jsonResult));
         sysOperLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
         if (e != null) {
             sysOperLog.setStatus(BusinessStatus.FAIL.ordinal());
@@ -83,7 +87,8 @@ public class LogAspectj {
         sysOperLog.setMethod(className + "." + methodName);
 
         sysOperLog.setRequestMethod(ServletUtils.getRequest().getMethod());
-
+        //set 注解上描述信息
+        getControllerMethodDescription(joinPoint, log ,sysOperLog);
         //开启线程保存日志信息
         AsyncManager.me().execute(AsyncFactory.recordOper(sysOperLog));
 
@@ -103,8 +108,10 @@ public class LogAspectj {
     /*获取请求的参数 保存到日志中*/
     private void setRequestValue(JoinPoint joinPoint, SysOperLog sysOperLog) {
         String methodType = sysOperLog.getRequestMethod();
-        if (HttpMethod.GET.equals(methodType) || HttpMethod.POST.equals(methodType)) {
-            String params = argsArrayToString(joinPoint.getArgs());
+        if (HttpMethod.GET.name().equals(methodType) || HttpMethod.POST.name().equals(methodType)) {
+            Object[] args = joinPoint.getArgs(); // 参数值
+            String[] argNames = ((MethodSignature)joinPoint.getSignature()).getParameterNames(); // 参数名
+            String params = argsArrayToString(args, argNames);
             sysOperLog.setOperParam(StringUtils.substring(params.toString(), 0, 5000));
         } else {
             Map<?, ?> paramsMap = (Map<?, ?>) ServletUtils.getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
@@ -112,17 +119,19 @@ public class LogAspectj {
         }
     }
 
-    private String argsArrayToString(Object[] paramArray) {
-        StringBuffer params = new StringBuffer();
+    private String argsArrayToString(Object[] paramArray, String[] paramNameArray) {
+//        StringBuffer params = new StringBuffer();
+        Map map = new HashMap();
         if (paramArray != null && paramArray.length > 0) {
             for(int i = 0 ;i<paramArray.length;i++){
-                if(isFilterObject(paramArray[i])){
-                    Object object= JSON.toJSON(paramArray[i]);
-                    params.append(object).append(" ");
+                if(!isFilterObject(paramArray[i])){
+                    /*Object object= JSON.toJSON(paramArray[i]);
+                    params.append(object).append(" ");*/
+                    map.put(paramNameArray[i],paramArray[i]);
                 }
             }
         }
-        return params.toString();
+        return map.toString();
     }
 
     private Boolean isFilterObject(final Object o) {

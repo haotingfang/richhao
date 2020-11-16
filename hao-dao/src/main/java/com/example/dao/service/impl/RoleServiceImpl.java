@@ -25,7 +25,8 @@ public class RoleServiceImpl implements RoleService {
         {
             if (StringUtils.isNotNull(perm))
             {
-                permsSet.addAll(Arrays.asList(perm.getRoleCode().trim().split(",")));
+                /**/
+                permsSet.add("ROLE_"+perm.getRoleCode().trim());
             }
         }
         return permsSet;

@@ -4,6 +4,7 @@ import com.example.common.core.domain.entity.UserInfo;
 import com.example.common.core.domain.vo.UserInfoVo;
 import com.example.common.utils.EnumUtil;
 import com.example.common.enums.UserType;
+import com.example.common.utils.StringUtils;
 import com.example.dao.mapper.UserInfoMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -12,7 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 class HaoWebApplicationTests {
@@ -54,6 +57,17 @@ class HaoWebApplicationTests {
             }
         }
         System.out.println(sb);
+    }
+
+    @Test
+    public void bb(){
+        // set转换为字符串
+        Set<String> set = new HashSet<String>();
+        set.add("AA");
+        set.add("BB");
+        set.add("CC");
+        String str = StringUtils.join(set.toArray(), ";");
+        System.out.println("特殊数组转换："+str);
     }
 
 }

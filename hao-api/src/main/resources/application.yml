@@ -80,7 +80,7 @@ swagger:
   # 是否开启swagger
   enabled: true
   # 请求前缀
-  pathMapping: /dev-api
+  pathMapping: /
 
 wx:
   appid: wx685701811311318a

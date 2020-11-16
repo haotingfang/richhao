@@ -4,6 +4,7 @@ import com.example.common.core.domain.entity.UserInfo;
 import com.example.common.core.domain.model.LoginUser;
 import com.example.common.core.domain.vo.UserInfoVo;
 import com.example.common.enums.CommonStatus;
+import com.example.common.utils.ConvertUtils;
 import com.example.common.utils.StringUtils;
 import com.example.dao.service.MenuService;
 import com.example.dao.service.RoleService;
@@ -11,12 +12,16 @@ import com.example.dao.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -53,6 +58,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> roles = roleService.getRolePermission(userInfo.getUserId());
         // 权限集合
         Set<String> permissions = menuService.getMenuPermission(userInfo.getUserId());
-        return new LoginUser((UserInfoVo) userInfo, roles, permissions);
+        UserInfoVo userInfoVo = ConvertUtils.convertUserInfo(userInfo);
+        LoginUser loginUser = new LoginUser(userInfoVo, roles, permissions);
+
+
+//        Set<String> set = new HashSet<>(roles);
+//        set.addAll(permissions);
+//        AuthorityUtils.createAuthorityList(StringUtils.join(set.toArray(), ","));
+        return loginUser;
     }
 }

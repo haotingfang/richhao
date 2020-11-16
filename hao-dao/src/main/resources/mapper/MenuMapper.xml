@@ -24,7 +24,7 @@
 
 
 
-    <select id="selectMenuPermsByUserId" parameterType="String" resultMap="MenuResult">
+    <select id="selectMenuPermsByUserId" parameterType="Long" resultType="java.lang.String">
         <include refid="selectMenuVo"></include>
         where role.status = '0' and role.del_flag ='0'
         and menu.status = '0' and relation_user_role.user_id = #{userId}

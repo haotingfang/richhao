@@ -15,9 +15,13 @@
             oper_name,
             oper_url,
             oper_param,
+        <if test="jsonResult != null">
             json_result,
+        </if>
             status,
+        <if test="errorMsg != null">
             error_msg,
+        </if>
             oper_time
             )
         values (
@@ -29,10 +33,14 @@
             #{operName,jdbcType=VARCHAR},
             #{operUrl,jdbcType=VARCHAR},
             #{operParam,jdbcType=VARCHAR},
+        <if test="jsonResult != null">
             #{jsonResult,jdbcType=VARCHAR},
+        </if>
             #{status,jdbcType=INTEGER},
+        <if test="errorMsg != null">
             #{error_msg,jdbcType=VARCHAR},
-            #{oper_time,jdbcType=TIMESTAMP}
+        </if>
+            now()
         )
     </insert>
 

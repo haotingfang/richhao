@@ -3,8 +3,10 @@ package com.example.common.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.stereotype.Component;
 
-public class SpringUtils implements BeanFactoryPostProcessor {
+@Component
+public final class SpringUtils implements BeanFactoryPostProcessor {
 
     private static ConfigurableListableBeanFactory beanFactory;
 

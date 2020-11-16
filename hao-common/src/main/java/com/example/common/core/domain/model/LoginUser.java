@@ -4,9 +4,12 @@ import com.example.common.core.domain.entity.UserInfo;
 import com.example.common.core.domain.vo.UserInfoVo;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,9 +36,19 @@ public class LoginUser implements UserDetails {
         this.permissions = permissions;
     }
 
+    /*设置用户权限*/
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> auths = new ArrayList<>();
+        Set<String> roles = this.getRoles();
+        for (String role : roles) {
+            auths.add(new SimpleGrantedAuthority(role));
+        }
+        Set<String> pers = this.getPermissions();
+        for (String per : pers) {
+            auths.add(new SimpleGrantedAuthority(per));
+        }
+        return auths;
     }
 
     @Override
