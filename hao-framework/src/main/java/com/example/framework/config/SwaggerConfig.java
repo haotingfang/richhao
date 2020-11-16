@@ -86,6 +86,7 @@ public class SwaggerConfig
         securityContexts.add(
                 SecurityContext.builder()
                         .securityReferences(defaultAuth())
+                        /*路径满足下面正则 不需要token（例如登录接口） */
                         .forPaths(PathSelectors.regex("^(?!auth).*$"))
                         .build());
         return securityContexts;
