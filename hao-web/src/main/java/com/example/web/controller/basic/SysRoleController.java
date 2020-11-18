@@ -29,17 +29,67 @@ public class SysRoleController {
     private RoleService roleService;
 
 
-    @Log(title = "角色列表-role" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
-    @ApiOperation("角色列表-role")
+    @Log(title = "角色列表" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色列表")
     @PreAuthorize("hasAuthority('system:role:list')")
     @GetMapping("/list")
     public TableDataInfo list(Role role, Integer pageSize , Integer pageNum)
     {
         logger.info("角色列表 role:[{}] ",role);
         TableDataInfo tableDataInfo = roleService.selectRoleList(role,pageSize,pageNum);
-        logger.info("角色列表 ajaxResult:[{}] ",tableDataInfo.toString());
+        logger.info("角色列表 tableDataInfo:[{}] ",tableDataInfo.toString());
         return tableDataInfo;
     }
+
+    @Log(title = "角色详情查看" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色详情查看")
+    @PreAuthorize("hasAuthority('system:role:query')")
+    @GetMapping("/{roleId}")
+    public AjaxResult getRoleInfo(@PathVariable  Long roleId)
+    {
+        logger.info("角色详情查看 roleId:[{}] ",roleId);
+        AjaxResult ajaxResult = roleService.getRoleInfo(roleId);
+        logger.info("角色列表 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
+
+    @Log(title = "角色详情新增" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色详情新增")
+    @PreAuthorize("hasAuthority('system:role:add')")
+    @PostMapping("/addRole")
+    public AjaxResult addRole(@RequestBody Role role)
+    {
+        logger.info("角色详情新增 role:[{}] ",role);
+        AjaxResult ajaxResult = roleService.addRole(role);
+        logger.info("角色详情新增 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
+
+    @Log(title = "角色详情编辑" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色详情编辑")
+    @PreAuthorize("hasAuthority('system:role:edit')")
+    @PostMapping("/editRole")
+    public AjaxResult editRole(@RequestBody Role role)
+    {
+        logger.info("角色详情编辑 role:[{}] ",role);
+        AjaxResult ajaxResult = roleService.addRole(role);
+        logger.info("角色详情编辑 ajaxResult:[{}] ",ajaxResult.toString());
+        return null;
+    }
+
+    @Log(title = "角色删除" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色删除")
+    @PreAuthorize("hasAuthority('system:role:delete')")
+    @PutMapping("/deleteRole")
+    public AjaxResult deleteRole(Long roleId)
+    {
+        logger.info("角色删除 role:[{}] ",roleId);
+      /*  AjaxResult ajaxResult = roleService.addRole(role);
+        logger.info("角色删除 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;*/
+      return null;
+    }
+
 
 
 

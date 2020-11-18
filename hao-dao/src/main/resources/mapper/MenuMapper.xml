@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.mapper.MenuMapper">
 
-    <resultMap type="com.example.common.core.domain.entity.Meun" id="MenuResult">
+    <resultMap type="com.example.common.core.domain.entity.Menu" id="MenuResult">
         <id property="id" column="id"/>
 
         <result property="status" column="status"/>
@@ -29,6 +29,23 @@
         where role.status = '0' and role.del_flag ='0'
         and menu.status = '0' and relation_user_role.user_id = #{userId}
     </select>
+
+    <select id="getMenuListByRoleId" parameterType="Long" resultType="Long">
+        select menu.id from menu
+        LEFT JOIN  relation_role_menu on menu.id = relation_role_menu.menu_id
+        where  menu.status = '0' and relation_role_menu.role_id = #{roleId}
+    </select>
+
+    <select id="getParentMenuList"  resultType="Map">
+        select menu.* from menu
+        where  menu.status = '0' and menu.parent_id is null
+    </select>
+
+    <select id="getSubMenuList"  resultType="Map">
+        select menu.* from menu
+        where  menu.status = '0' and menu.parent_id is not null
+    </select>
+
 
 
 

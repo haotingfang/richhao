@@ -8,9 +8,8 @@
         <id property="id" column="id"/>
         <result property="roleName" column="role_name"/>
         <result property="roleCode" column="role_code"/>
-        <result property="roleSort" column="role_sort"/>
         <result property="status" column="status"/>
-        <result property="delFalg" column="del_falg"/>
+        <result property="delFlag" column="del_flag"/>
         <result property="remark" column="remark"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
@@ -23,8 +22,6 @@
        LEFT JOIN relation_user_role on role.id=relation_user_role.role_id
        LEFT JOIN user_info on user_info.user_id=relation_user_role.user_id
     </sql>
-
-
 
     <select id="selectRoleByUserId" parameterType="Long" resultMap="RoleResult">
         <include refid="selectRoleVo"></include>
@@ -44,16 +41,59 @@
         <if test=" status != null">
           and  status = #{status,jdbcType=CHAR}
         </if>
+        order by update_time desc
     </select>
 
 
-    <select id="selectRoleList1" parameterType="String" resultMap="RoleResult">
+    <select id="getRoleInfoById" parameterType="Long" resultMap="RoleResult">
         select role.* from role
-        where  role.del_flag ='0'
-        <if test=" roleName != null">
-           and role_name = #{roleName},
+        where  role.id = #{id}
+    </select>
+
+    <select id="checkRoleNameUnique"  resultType="boolean">
+        select IF(count(*)>0,TRUE,FALSE) from role
+        where role_name = #{roleName}
+        <if test="id != null">
+            and id != #{id}
         </if>
     </select>
+
+    <select id="checkRoleCodeUnique"  resultType="boolean">
+        select IF(count(*)>0,TRUE,FALSE) from role
+        where role_code = #{roleCode}
+        <if test="id != null">
+            and id != #{id}
+        </if>
+    </select>
+
+    <insert id="insertRole" parameterType="com.example.common.core.domain.entity.Role" useGeneratedKeys="true" keyProperty="roleId">
+        insert into role(
+        <if test="id != null and id != 0">id,</if>
+        <if test="roleName != null and roleName != ''">role_name,</if>
+        <if test="roleCode != null and roleCode != ''">role_code,</if>
+        <if test="status != null and status != ''">status,</if>
+        <if test="delFlag != null and delFlag != ''">del_flag,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        create_time,
+        <if test="updateBy != null and updateBy != ''">update_by,</if>
+        update_by
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="roleName != null and roleName != ''">#{roleName},</if>
+        <if test="roleCode != null and roleCode != ''">#{roleCode},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        sysdate(),
+        <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+        sysdate()
+        )
+    </insert>
+
+
+
 
 
 

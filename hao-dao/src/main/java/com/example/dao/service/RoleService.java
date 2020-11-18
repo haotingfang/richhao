@@ -15,5 +15,10 @@ public interface RoleService {
 
     public TableDataInfo selectRoleList(Role role, Integer pageSize, Integer pageNum);
 
+    public AjaxResult getRoleInfo(Long roleId);
+
+    public AjaxResult addRole(Role role);
+
+
 
 }

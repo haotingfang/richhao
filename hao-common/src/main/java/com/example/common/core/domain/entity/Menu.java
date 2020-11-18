@@ -4,7 +4,7 @@ import com.example.common.core.domain.BaseEntity;
 import lombok.Data;
 
 @Data
-public class Meun extends BaseEntity {
+public class Menu extends BaseEntity {
     /* id                bigint(20)      not null auto_increment    comment '菜单ID',
   menu_name         varchar(50)     not null                   comment '菜单名称',
   parent_id         bigint(20)      default 0                  comment '父菜单ID',

@@ -1,6 +1,7 @@
 package com.example.dao.mapper;
 
 import com.example.common.core.domain.entity.Role;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -12,6 +13,11 @@ public interface RoleMapper {
 
     public List<Role> selectRoleList(Role role);
 
-    public List<Role> selectRoleList1(String roleName);
+    public Role getRoleInfoById(Long id);
 
+    public Boolean checkRoleNameUnique(@Param("id") Long id, @Param("roleName") String roleName);
+
+    public Boolean checkRoleCodeUnique(@Param("id") Long id, @Param("roleName") String roleName);
+
+    public int insertRole(Role role);
 }
