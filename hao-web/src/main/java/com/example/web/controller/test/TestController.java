@@ -17,7 +17,7 @@ public class TestController {
     @Log(title = "测试findById" ,businessType = BusinessType.OTHER ,operatorType = OperatorType.MANAGE)
     @ApiOperation("findById")
     @GetMapping("/find/{id}")
-    @PreAuthorize("hasAuthority('test.findById')")
+    @PreAuthorize("hasAuthority('test:findById')")
     public String  findById(@PathVariable("id") int id) {
         return String.valueOf(id);
     }
@@ -26,7 +26,7 @@ public class TestController {
     @Log(title = "测试getById" ,businessType = BusinessType.OTHER ,operatorType = OperatorType.MANAGE)
     @ApiOperation("findById")
     @GetMapping("/get")
-    @PreAuthorize("hasAuthority('test.getById')")
+    @PreAuthorize("hasAuthority('test:getById')")
     public String  getById(@RequestParam("id") int id) {
         return String.valueOf(id);
     }
@@ -34,7 +34,7 @@ public class TestController {
     @Log(title = "测试save" ,businessType = BusinessType.OTHER ,operatorType = OperatorType.MANAGE)
     @ApiOperation("save")
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('test.jj')")
+    @PreAuthorize("hasAuthority('test:jj')")
     public String  save(@RequestBody String str) {
         return str;
     }

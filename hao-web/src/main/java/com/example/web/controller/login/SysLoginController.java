@@ -51,22 +51,6 @@ public class SysLoginController {
         return ajaxResult;
     }
 
-    @Log(title = "测试" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
-    @ApiOperation("测试")
-    @PostMapping("/test")
-    public Map test(@RequestBody Map map) {
-        logger.info("请求登录接口 map:[{}] ", map);
-        return map;
-    }
-
-    @Log(title = "测试2" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
-    @ApiOperation("测试2")
-    @GetMapping("/test2")
-    public String test2(@RequestParam Integer id, @RequestParam String name) {
-        logger.info("请求登录接口 id:[{}] , name:[{}] ", id , name);
-        return id+","+name;
-    }
-
 
     /**
      * 获取用户信息

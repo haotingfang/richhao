@@ -32,6 +32,29 @@
         and user_info.user_id=#{userId}
     </select>
 
+    <select id="selectRoleList" parameterType="com.example.common.core.domain.entity.Role" resultMap="RoleResult">
+       select role.* from role
+        where  role.del_flag ='0'
+        <if test=" roleName != null">
+          and  role_name like concat('%',#{roleName},'%')
+        </if>
+        <if test=" roleCode != null">
+          and  role_code like concat('%',#{roleCode},'%')
+        </if>
+        <if test=" status != null">
+          and  status = #{status,jdbcType=CHAR}
+        </if>
+    </select>
+
+
+    <select id="selectRoleList1" parameterType="String" resultMap="RoleResult">
+        select role.* from role
+        where  role.del_flag ='0'
+        <if test=" roleName != null">
+           and role_name = #{roleName},
+        </if>
+    </select>
+
 
 
 
