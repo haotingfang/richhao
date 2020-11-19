@@ -12,7 +12,7 @@ import java.util.Date;
  *
  */
 @Data
-public class SysOperLog extends BaseEntity
+public class SysOperLog
 {
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +25,7 @@ public class SysOperLog extends BaseEntity
     /** 业务类型（0其它 1新增 2修改 3删除） */
     private Integer businessType;
 
-    /** 业务类型数组 */
-    private Integer[] businessTypes;
+
 
     /** 请求方法 */
     private String method;
