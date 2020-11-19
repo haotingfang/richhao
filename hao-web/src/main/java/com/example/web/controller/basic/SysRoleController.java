@@ -72,9 +72,9 @@ public class SysRoleController {
     public AjaxResult editRole(@RequestBody Role role)
     {
         logger.info("角色详情编辑 role:[{}] ",role);
-        AjaxResult ajaxResult = roleService.addRole(role);
+        AjaxResult ajaxResult = roleService.editRole(role);
         logger.info("角色详情编辑 ajaxResult:[{}] ",ajaxResult.toString());
-        return null;
+        return ajaxResult;
     }
 
     @Log(title = "角色删除" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
@@ -84,10 +84,9 @@ public class SysRoleController {
     public AjaxResult deleteRole(Long roleId)
     {
         logger.info("角色删除 role:[{}] ",roleId);
-      /*  AjaxResult ajaxResult = roleService.addRole(role);
+        AjaxResult ajaxResult = roleService.deleteRole(roleId);
         logger.info("角色删除 ajaxResult:[{}] ",ajaxResult.toString());
-        return ajaxResult;*/
-      return null;
+        return ajaxResult;
     }
 
 

@@ -50,7 +50,7 @@ public class MenuServiceImpl implements MenuService {
             if(list==null){
                 list = new ArrayList<>();
             }
-            String id = String.valueOf(subMenu.get("id"));
+            Long id = (Long) subMenu.get("id");
             String checkFlag = "false" ;
             if(checkMenus.contains(id)){
                 checkFlag = "true";

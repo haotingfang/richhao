@@ -17,6 +17,11 @@
         </foreach>
     </insert>
 
+    <delete id="deleteRoleMenuByRoleId">
+       delete from relation_role_menu
+       where role_id = #{roleId}
+    </delete>
+
 
 
 

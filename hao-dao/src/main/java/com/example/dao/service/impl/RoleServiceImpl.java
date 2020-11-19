@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -56,6 +57,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public AjaxResult addRole(Role role) {
         //校验角色名称 和 角色编号
         if(checkRoleNameUnique(role)){
@@ -71,6 +73,35 @@ public class RoleServiceImpl implements RoleService {
         insertRoleMenu(role);
         return AjaxResult.success();
     }
+
+    @Override
+    @Transactional
+    public AjaxResult editRole(Role role) {
+        //校验角色名称 和 角色编号
+        if(checkRoleNameUnique(role)){
+            return AjaxResult.error("角色名称重复");
+        }
+        if(checkRoleCodeUnique(role)){
+            return AjaxResult.error("角色编号重复");
+        }
+        BeanUtils.editBuildBean(role);
+        //更新角色数据
+        roleMapper.updateRole(role);
+        //删除老的菜单关联数据
+        roleMenuMapper.deleteRoleMenuByRoleId(role.getId());
+        //插入菜单关联数据
+        insertRoleMenu(role);
+        return AjaxResult.success();
+    }
+
+    @Override
+    @Transactional
+    public AjaxResult deleteRole(Long roleId) {
+        String userName = SecurityUtils.getUserName();
+        roleMapper.deleteRole(roleId,userName);
+        return AjaxResult.success();
+    }
+
 
     /**
      * 新增角色菜单信息

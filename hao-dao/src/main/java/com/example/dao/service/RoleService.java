@@ -19,6 +19,10 @@ public interface RoleService {
 
     public AjaxResult addRole(Role role);
 
+    public AjaxResult editRole(Role role);
+
+    public AjaxResult deleteRole(Long roleId);
+
 
 
 }

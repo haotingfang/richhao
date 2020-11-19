@@ -17,7 +17,13 @@ public interface RoleMapper {
 
     public Boolean checkRoleNameUnique(@Param("id") Long id, @Param("roleName") String roleName);
 
-    public Boolean checkRoleCodeUnique(@Param("id") Long id, @Param("roleName") String roleName);
+    public Boolean checkRoleCodeUnique(@Param("id") Long id, @Param("roleCode") String roleName);
 
     public int insertRole(Role role);
+
+    public int updateRole(Role role);
+
+    public int deleteRole(@Param("id") Long id,@Param("updateBy") String updateBy);
+
+
 }

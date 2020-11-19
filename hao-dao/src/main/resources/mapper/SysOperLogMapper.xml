@@ -38,7 +38,7 @@
         </if>
             #{status,jdbcType=INTEGER},
         <if test="errorMsg != null">
-            #{error_msg,jdbcType=VARCHAR},
+            #{errorMsg,jdbcType=VARCHAR},
         </if>
             now()
         )

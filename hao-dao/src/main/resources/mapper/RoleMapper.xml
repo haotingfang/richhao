@@ -66,7 +66,7 @@
         </if>
     </select>
 
-    <insert id="insertRole" parameterType="com.example.common.core.domain.entity.Role" useGeneratedKeys="true" keyProperty="roleId">
+    <insert id="insertRole" parameterType="com.example.common.core.domain.entity.Role" useGeneratedKeys="true" keyProperty="id">
         insert into role(
         <if test="id != null and id != 0">id,</if>
         <if test="roleName != null and roleName != ''">role_name,</if>
@@ -77,7 +77,7 @@
         <if test="createBy != null and createBy != ''">create_by,</if>
         create_time,
         <if test="updateBy != null and updateBy != ''">update_by,</if>
-        update_by
+        update_time
         )values(
         <if test="id != null and id != 0">#{id},</if>
         <if test="roleName != null and roleName != ''">#{roleName},</if>
@@ -91,6 +91,47 @@
         sysdate()
         )
     </insert>
+
+    <update id="updateRole" parameterType="com.example.common.core.domain.entity.Role">
+        update role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName},
+            </if>
+            <if test="roleCode != null">
+                role_code = #{roleCode},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="deleteRole">
+        update role
+        <set>
+            del_flag = 2,
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
 
 
 

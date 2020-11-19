@@ -7,5 +7,7 @@ import java.util.List;
 public interface RoleMenuMapper {
 
     public int batchRoleMenu(List<RoleMenu> list);
+
+    public int deleteRoleMenuByRoleId(Long roleId);
 }
 
