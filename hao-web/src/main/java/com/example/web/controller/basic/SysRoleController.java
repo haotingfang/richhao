@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api("角色模块")
@@ -53,11 +55,14 @@ public class SysRoleController {
         return ajaxResult;
     }
 
+    /*
+    * {"delFlag":"0","menus":[6,7,8],"remark":"测试哦","roleCode":"","roleName":"测试哦","status":"0"}
+    * */
     @Log(title = "角色详情新增" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
     @ApiOperation("角色详情新增")
     @PreAuthorize("hasAuthority('system:role:add')")
     @PostMapping("/addRole")
-    public AjaxResult addRole(@RequestBody Role role)
+    public AjaxResult addRole(@RequestBody @Validated Role role)
     {
         logger.info("角色详情新增 role:[{}] ",role);
         AjaxResult ajaxResult = roleService.addRole(role);

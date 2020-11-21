@@ -64,6 +64,10 @@
             <artifactId>weixin-java-miniapp</artifactId>
             <version>3.9.6.B</version>
         </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
 
 
     </dependencies>
