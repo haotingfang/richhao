@@ -22,7 +22,7 @@ import java.util.List;
 
 @Api("角色模块")
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/system/role")
 public class SysRoleController {
 
     private Logger logger = LoggerFactory.getLogger(SysRoleController.class);

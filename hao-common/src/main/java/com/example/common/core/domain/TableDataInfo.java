@@ -20,7 +20,7 @@ public class TableDataInfo implements Serializable {
 
     private int totalPage;
 
-    private List<?> data;
+    private List<?> rows;
 
     private int code;
 

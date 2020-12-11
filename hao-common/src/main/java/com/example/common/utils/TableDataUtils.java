@@ -14,7 +14,7 @@ public class TableDataUtils {
         TableDataInfo tableDataInfo = new TableDataInfo();
         tableDataInfo.setCode(HttpStatus.SUCCESS);
         tableDataInfo.setMsg("操作成功");
-        tableDataInfo.setData(list);
+        tableDataInfo.setRows(list);
         tableDataInfo.setCurrIndex(pageInfo.getPageNum());
         tableDataInfo.setNextIndex(pageInfo.getNextPage());
         tableDataInfo.setPreIndex(pageInfo.getPrePage());

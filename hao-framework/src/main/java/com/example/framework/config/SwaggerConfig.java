@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Swagger2的接口配置
- * 
+ *
  */
 @Configuration
 @EnableSwagger2

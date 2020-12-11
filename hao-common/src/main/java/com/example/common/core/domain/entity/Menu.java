@@ -3,6 +3,9 @@ package com.example.common.core.domain.entity;
 import com.example.common.core.domain.BaseEntity;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Menu extends BaseEntity {
     /* id                bigint(20)      not null auto_increment    comment '菜单ID',
@@ -36,7 +39,7 @@ public class Menu extends BaseEntity {
     private String path;
 
     /*组件路径*/
-    private Long component;
+    private String component;
 
     /*菜单类型（M目录 C菜单 F按钮）*/
     private String menuType;
@@ -49,4 +52,10 @@ public class Menu extends BaseEntity {
 
     /*备注*/
     private String remark;
+
+    private String icon;
+
+    /** 子菜单 */
+    private List<Menu> children = new ArrayList<Menu>();
+
 }
