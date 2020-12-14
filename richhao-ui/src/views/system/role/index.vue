@@ -55,16 +55,6 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['system:role:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
           type="danger"
           icon="el-icon-delete"
           size="mini"
@@ -105,6 +95,7 @@
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:role:edit']"
           >修改</el-button>
+<!--
           <el-button
             size="mini"
             type="text"
@@ -112,6 +103,7 @@
             @click="handleDataScope(scope.row)"
             v-hasPermi="['system:role:edit']"
           >数据权限</el-button>
+-->
           <el-button
             size="mini"
             type="text"
@@ -175,7 +167,7 @@
     </el-dialog>
 
     <!-- 分配角色数据权限对话框 -->
-    <el-dialog :title="title" :visible.sync="openDataScope" width="500px" append-to-body>
+   <!-- <el-dialog :title="title" :visible.sync="openDataScope" width="500px" append-to-body>
       <el-form :model="form" label-width="80px">
         <el-form-item label="角色名称">
           <el-input v-model="form.roleName" :disabled="true" />
@@ -204,14 +196,13 @@
         <el-button type="primary" @click="submitDataScope">确 定</el-button>
         <el-button @click="cancelDataScope">取 消</el-button>
       </div>
-    </el-dialog>
+    </el-dialog>-->
   </div>
 </template>
 
 <script>
 import { listRole, getRole, delRole, addRole, updateRole, exportRole, dataScope, changeRoleStatus } from "@/api/system/role";
 import { treeselect as menuTreeselect, roleMenuTreeselect } from "@/api/system/menu";
-import { treeselect as deptTreeselect, roleDeptTreeselect } from "@/api/system/dept";
 
 export default {
   name: "Role",
@@ -223,8 +214,9 @@ export default {
       loading: true,
       // 选中数组
       ids: [],
-      // 非单个禁用
-      single: true,
+      // 选中数组编号
+      roleCodes: [],
+
       // 非多个禁用
       multiple: true,
       // 显示搜索条件
@@ -238,7 +230,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 是否显示弹出层（数据权限）
-      openDataScope: false,
+      // openDataScope: false,
       menuExpand: false,
       menuNodeAll: false,
       deptExpand: true,
@@ -339,10 +331,10 @@ export default {
       this.reset();
     },
     // 取消按钮（数据权限）
-    cancelDataScope() {
+  /*  cancelDataScope() {
       this.openDataScope = false;
       this.reset();
-    },
+    },*/
     // 表单重置
     reset() {
       if (this.$refs.menu != undefined) {
@@ -377,7 +369,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
-      this.single = selection.length!=1
+      this.roleCodes = selection.map(item => item.roleCode)
       this.multiple = !selection.length
     },
     // 树权限（展开/折叠）
@@ -434,7 +426,7 @@ export default {
       });
     },
     /** 分配数据权限操作 */
-    handleDataScope(row) {
+    /*handleDataScope(row) {
       this.reset();
       const roleDeptTreeselect = this.getRoleDeptTreeselect(row.id);
       getRole(row.id).then(response => {
@@ -447,7 +439,7 @@ export default {
         });
         this.title = "分配数据权限";
       });
-    },
+    },*/
     /** 提交按钮 */
     submitForm: function() {
       this.$refs["form"].validate(valid => {
@@ -475,7 +467,7 @@ export default {
       });
     },
     /** 提交按钮（数据权限） */
-    submitDataScope: function() {
+    /*submitDataScope: function() {
       if (this.form.id != undefined) {
         this.form.deptIds = this.getDeptAllCheckedKeys();
         dataScope(this.form).then(response => {
@@ -486,11 +478,12 @@ export default {
           }
         });
       }
-    },
+    },*/
     /** 删除按钮操作 */
     handleDelete(row) {
       const roleIds = row.roleId || this.ids;
-      this.$confirm('是否确认删除角色编号为"' + roleIds + '"的数据项?', "警告", {
+      const roleCodes = row.roleCode || this.roleCodes;
+      this.$confirm('是否确认删除角色编号为"' + roleCodes + '"的数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"

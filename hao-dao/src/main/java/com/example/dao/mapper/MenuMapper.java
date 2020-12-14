@@ -18,4 +18,6 @@ public interface MenuMapper {
     public List<Map<String,Object>> getSubMenuList();
 
     public List<Menu> selectMenuTreeByUserId(Long userId);
+
+    public List<Menu> selectMenuList();
 }

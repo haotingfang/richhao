@@ -1,6 +1,7 @@
 package com.example.dao.service;
 
 import com.example.common.core.domain.AjaxResult;
+import com.example.common.core.domain.TreeSelect;
 import com.example.common.core.domain.entity.Menu;
 import com.example.common.core.domain.vo.RouterVo;
 
@@ -12,7 +13,7 @@ public interface MenuService {
 
     public Set<String> getMenuPermission(Long userId);
 
-    public AjaxResult getMenuListByRoleId(Long roleId);
+//    public AjaxResult getMenuListByRoleId(Long roleId);
 
     public List<Menu> selectMenuTreeByUserId(Long userId);
 
@@ -23,6 +24,12 @@ public interface MenuService {
      * @return 路由列表
      */
     public List<RouterVo> buildMenus(List<Menu> menus);
+
+    public List<Menu>  selectMenuList();
+
+    public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus);
+
+    public List<Menu> buildMenuTree(List<Menu> menus);
 
 
 

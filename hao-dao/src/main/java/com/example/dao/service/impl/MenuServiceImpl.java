@@ -2,6 +2,7 @@ package com.example.dao.service.impl;
 
 import com.example.common.constant.UserConstants;
 import com.example.common.core.domain.AjaxResult;
+import com.example.common.core.domain.TreeSelect;
 import com.example.common.core.domain.entity.Menu;
 import com.example.common.core.domain.vo.MetaVo;
 import com.example.common.core.domain.vo.RouterVo;
@@ -12,8 +13,10 @@ import com.example.dao.service.MenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -33,17 +36,17 @@ public class MenuServiceImpl implements MenuService {
         return permsSet;
     }
 
-    public AjaxResult getMenuListByRoleId(Long roleId) {
-//        获取选中所有菜单id
-        List<Long> checkMenus = menuMapper.getMenuListByRoleId(roleId);
-//        获取所有一级菜单
-        List<Map<String,Object>> parentMenus = menuMapper.getParentMenuList();
-//        获取所有菜单
-        List<Map<String,Object>> subMenus = menuMapper.getSubMenuList();
-//        build菜单层级结构,并组装选中数据
-        List<Map> retList = buildMenuTree(parentMenus, subMenus, checkMenus);
-        return  AjaxResult.success(retList);
-    }
+//    public AjaxResult getMenuListByRoleId(Long roleId) {
+////        获取选中所有菜单id
+//        List<Long> checkMenus = menuMapper.getMenuListByRoleId(roleId);
+////        获取所有一级菜单
+//        List<Map<String,Object>> parentMenus = menuMapper.getParentMenuList();
+////        获取所有菜单
+//        List<Map<String,Object>> subMenus = menuMapper.getSubMenuList();
+////        build菜单层级结构,并组装选中数据
+//        List<Map> retList = buildMenuTree(parentMenus, subMenus, checkMenus);
+//        return  AjaxResult.success(retList);
+//    }
 
     @Override
     public List<Menu> selectMenuTreeByUserId(Long userId) {
@@ -78,6 +81,12 @@ public class MenuServiceImpl implements MenuService {
             routers.add(router);
         }
         return routers;
+    }
+
+    @Override
+    public List<Menu> selectMenuList() {
+        List<Menu> menus = menuMapper.selectMenuList();
+        return menus;
     }
 
     /**
@@ -185,30 +194,43 @@ public class MenuServiceImpl implements MenuService {
         return getChildList(list, t).size() > 0 ? true : false;
     }
 
-    private List<Map> buildMenuTree(List<Map<String,Object>> parentMenus, List<Map<String,Object>> subMenus, List<Long> checkMenus) {
-        Map<String,List> subMap = new HashMap();
-        for(Map<String,Object> subMenu : subMenus){
-            String parentId = String.valueOf(subMenu.get("parent_id"));
-            List<Map> list = subMap.get(parentId);
-            if(list==null){
-                list = new ArrayList<>();
-            }
-            Long id = (Long) subMenu.get("id");
-            String checkFlag = "false" ;
-            if(checkMenus.contains(id)){
-                checkFlag = "true";
-            }
-            subMenu.put("checked",checkFlag);
-            list.add(subMenu);
-            subMap.put(parentId,list);
-        }
-        List<Map> retList = new ArrayList<>();
-        for(Map<String,Object> parentMenu : parentMenus){
-            String parentId = String.valueOf(parentMenu.get("id"));
-            List<Map> subList = subMap.get(parentId);
-            parentMenu.put("sub",subList);
-            retList.add(parentMenu);
-        }
-        return retList;
+
+    public List<TreeSelect> buildMenuTreeSelect(List<Menu> menus){
+        List<Menu> menuTrees = buildMenuTree(menus);
+        return menuTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
+
+
+    /**
+     * 构建前端所需要树结构
+     *
+     * @param menus 菜单列表
+     * @return 树结构列表
+     */
+    @Override
+    public List<Menu> buildMenuTree(List<Menu> menus)
+    {
+        List<Menu> returnList = new ArrayList<Menu>();
+        List<Long> tempList = new ArrayList<Long>();
+        for (Menu dept : menus)
+        {
+            tempList.add(dept.getId());
+        }
+        for (Iterator<Menu> iterator = menus.iterator(); iterator.hasNext();)
+        {
+            Menu menu = (Menu) iterator.next();
+            // 如果是顶级节点, 遍历该父节点的所有子节点
+            if (!tempList.contains(menu.getParentId()))
+            {
+                recursionFn(menus, menu);
+                returnList.add(menu);
+            }
+        }
+        if (returnList.isEmpty())
+        {
+            returnList = menus;
+        }
+        return returnList;
+    }
+
 }

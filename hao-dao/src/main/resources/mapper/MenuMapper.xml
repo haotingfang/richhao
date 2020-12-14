@@ -66,6 +66,11 @@
 		order by m.parent_id, m.order_num
 	</select>
 
+    <select id="selectMenuList"  resultMap="MenuResult">
+        select menu.* from menu
+        where  menu.status = '0' ;
+    </select>
+
 
 
 
