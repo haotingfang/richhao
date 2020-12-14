@@ -121,7 +121,7 @@
         where id = #{id}
     </update>
 
-    <update id="deleteRole">
+    <update id="deleteRoles">
         update role
         <set>
             del_flag = 2,
@@ -130,7 +130,10 @@
             </if>
             update_time = sysdate()
         </set>
-        where id = #{id}
+        where id in
+        <foreach collection="ids" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
     </update>
 
 

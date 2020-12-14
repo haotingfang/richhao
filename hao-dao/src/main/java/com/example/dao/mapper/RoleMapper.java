@@ -23,7 +23,7 @@ public interface RoleMapper {
 
     public int updateRole(Role role);
 
-    public int deleteRole(@Param("id") Long id,@Param("updateBy") String updateBy);
+    public int deleteRoles(@Param("ids") Long[] ids,@Param("updateBy") String updateBy);
 
 
 }

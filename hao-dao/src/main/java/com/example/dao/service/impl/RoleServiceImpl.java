@@ -4,10 +4,12 @@ import com.example.common.core.domain.AjaxResult;
 import com.example.common.core.domain.TableDataInfo;
 import com.example.common.core.domain.entity.Role;
 import com.example.common.core.domain.entity.RoleMenu;
+import com.example.common.exception.CustomException;
 import com.example.common.utils.BeanUtils;
 import com.example.common.utils.SecurityUtils;
 import com.example.common.utils.StringUtils;
 import com.example.common.utils.TableDataUtils;
+import com.example.dao.mapper.RelationUserRoleMapper;
 import com.example.dao.mapper.RoleMapper;
 import com.example.dao.mapper.RoleMenuMapper;
 import com.example.dao.service.RoleService;
@@ -27,6 +29,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleMenuMapper roleMenuMapper;
+
+    @Autowired
+    private RelationUserRoleMapper relationUserRoleMapper;
 
     @Override
     public Set<String> getRolePermission(Long userId) {
@@ -96,9 +101,26 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public AjaxResult deleteRole(Long roleId) {
+    public int deleteRole(Long[] roleIds)  {
+//        验证角色是否被引用
+        for(Long roleId : roleIds){
+            Role role = roleMapper.getRoleInfoById(roleId);
+            //查询角色被引用的数据量
+            int count = relationUserRoleMapper.countUserRoleByRoleId(roleId);
+            if(count>0){
+                throw new RuntimeException(role.getRoleName()+"已分配,不能删除");
+            }
+        }
         String userName = SecurityUtils.getUserName();
-        roleMapper.deleteRole(roleId,userName);
+        return roleMapper.deleteRoles(roleIds,userName);
+    }
+
+    @Override
+    @Transactional
+    public AjaxResult updateRoleStatus(Role role) {
+        String userName = SecurityUtils.getUserName();
+        role.setUpdateBy(userName);
+        roleMapper.updateRole(role);
         return AjaxResult.success();
     }
 

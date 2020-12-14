@@ -21,7 +21,9 @@ public interface RoleService {
 
     public AjaxResult editRole(Role role);
 
-    public AjaxResult deleteRole(Long roleId);
+    public int deleteRole(Long[] roleIds) ;
+
+    public AjaxResult updateRoleStatus(Role role);
 
 
 

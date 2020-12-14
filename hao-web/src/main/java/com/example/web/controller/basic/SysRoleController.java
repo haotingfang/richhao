@@ -6,6 +6,7 @@ import com.example.common.core.domain.TableDataInfo;
 import com.example.common.core.domain.entity.Role;
 import com.example.common.enums.BusinessType;
 import com.example.common.enums.OperatorType;
+import com.example.common.utils.SecurityUtils;
 import com.example.dao.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -84,16 +85,28 @@ public class SysRoleController {
 
     @Log(title = "角色删除" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
     @ApiOperation("角色删除")
-    @PreAuthorize("hasAuthority('system:role:delete')")
-    @PutMapping("/deleteRole")
-    public AjaxResult deleteRole(Long roleId)
-    {
-        logger.info("角色删除 role:[{}] ",roleId);
-        AjaxResult ajaxResult = roleService.deleteRole(roleId);
-        logger.info("角色删除 ajaxResult:[{}] ",ajaxResult.toString());
+    @PreAuthorize("hasAuthority('system:role:remove')")
+    @DeleteMapping("/{roleIds}")
+    public AjaxResult deleteRole(@PathVariable Long[] roleIds) {
+        logger.info("角色删除 roleIds:[{}] ", roleIds);
+        int rows = roleService.deleteRole(roleIds);
+        AjaxResult ajaxResult = rows > 0 ? AjaxResult.success() : AjaxResult.error();
+        logger.info("角色删除 ajaxResult:[{}] ", ajaxResult.toString());
         return ajaxResult;
     }
 
+
+    @Log(title = "角色停用/启用" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("角色停用/启用")
+    @PreAuthorize("hasAuthority('system:role:edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody Role role)
+    {
+        logger.info("角色停用/启用 role:[{}] ",role);
+        AjaxResult ajaxResult = roleService.updateRoleStatus(role);
+        logger.info("角色删除 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
 
 
 
