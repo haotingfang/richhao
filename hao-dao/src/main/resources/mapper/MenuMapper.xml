@@ -71,6 +71,12 @@
         where  menu.status = '0' ;
     </select>
 
+    <select id="selectMenuListByRoleId" resultType="java.lang.Integer">
+       select e.id  from menu e
+       LEFT JOIN relation_role_menu r on r.menu_id = e.id
+       where r.role_id = #{roleId};
+    </select>
+
 
 
 

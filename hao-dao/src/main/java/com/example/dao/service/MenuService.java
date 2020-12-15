@@ -31,6 +31,7 @@ public interface MenuService {
 
     public List<Menu> buildMenuTree(List<Menu> menus);
 
+    public List<Integer> selectMenuListByRoleId(Long roleId);
 
 
 

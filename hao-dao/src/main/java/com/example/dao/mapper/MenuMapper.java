@@ -20,4 +20,6 @@ public interface MenuMapper {
     public List<Menu> selectMenuTreeByUserId(Long userId);
 
     public List<Menu> selectMenuList();
+
+    public List<Integer> selectMenuListByRoleId(Long roleId);
 }

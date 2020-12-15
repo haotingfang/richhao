@@ -142,9 +142,9 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="菜单权限">
-          <el-checkbox v-model="menuExpand" @change="handleCheckedTreeExpand($event, 'menu')">展开/折叠</el-checkbox>
-          <el-checkbox v-model="menuNodeAll" @change="handleCheckedTreeNodeAll($event, 'menu')">全选/全不选</el-checkbox>
-          <el-checkbox v-model="form.menuCheckStrictly" @change="handleCheckedTreeConnect($event, 'menu')">父子联动</el-checkbox>
+          <el-checkbox v-model="menuExpand" @change="handleCheckedTreeExpand($event)">展开/折叠</el-checkbox>
+          <el-checkbox v-model="menuNodeAll" @change="handleCheckedTreeNodeAll($event)">全选/全不选</el-checkbox>
+          <el-checkbox v-model="form.menuCheckStrictly" @change="handleCheckedTreeConnect($event)">父子联动</el-checkbox>
           <el-tree
             class="tree-border"
             :data="menuOptions"
@@ -348,10 +348,8 @@ export default {
         roleCode: undefined,
         roleName: undefined,
         status: "0",
-        menuIds: [],
-        deptIds: [],
+        menus: [],
         menuCheckStrictly: true,
-		deptCheckStrictly: true,
         remark: undefined
       };
       this.resetForm("form");
@@ -373,34 +371,19 @@ export default {
       this.multiple = !selection.length
     },
     // 树权限（展开/折叠）
-    handleCheckedTreeExpand(value, type) {
-      if (type == 'menu') {
-        let treeList = this.menuOptions;
-        for (let i = 0; i < treeList.length; i++) {
-          this.$refs.menu.store.nodesMap[treeList[i].id].expanded = value;
-        }
-      } else if (type == 'dept') {
-        let treeList = this.deptOptions;
-        for (let i = 0; i < treeList.length; i++) {
-          this.$refs.dept.store.nodesMap[treeList[i].id].expanded = value;
-        }
+    handleCheckedTreeExpand(value) {
+      let treeList = this.menuOptions;
+      for (let i = 0; i < treeList.length; i++) {
+        this.$refs.menu.store.nodesMap[treeList[i].id].expanded = value;
       }
     },
     // 树权限（全选/全不选）
-    handleCheckedTreeNodeAll(value, type) {
-      if (type == 'menu') {
-        this.$refs.menu.setCheckedNodes(value ? this.menuOptions: []);
-      } else if (type == 'dept') {
-        this.$refs.dept.setCheckedNodes(value ? this.deptOptions: []);
-      }
+    handleCheckedTreeNodeAll(value) {
+      this.$refs.menu.setCheckedNodes(value ? this.menuOptions: []);
     },
     // 树权限（父子联动）
-    handleCheckedTreeConnect(value, type) {
-      if (type == 'menu') {
+    handleCheckedTreeConnect(value) {
         this.form.menuCheckStrictly = value ? true: false;
-      } else if (type == 'dept') {
-        this.form.deptCheckStrictly = value ? true: false;
-      }
     },
     /** 新增按钮操作 */
     handleAdd() {
@@ -445,7 +428,7 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != undefined) {
-            this.form.menuIds = this.getMenuAllCheckedKeys();
+            this.form.menus = this.getMenuAllCheckedKeys();
             updateRole(this.form).then(response => {
               if (response.code === 200) {
                 this.msgSuccess("修改成功");
@@ -454,7 +437,7 @@ export default {
               }
             });
           } else {
-            this.form.menuIds = this.getMenuAllCheckedKeys();
+            this.form.menus = this.getMenuAllCheckedKeys();
             addRole(this.form).then(response => {
               if (response.code === 200) {
                 this.msgSuccess("新增成功");

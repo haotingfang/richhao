@@ -60,7 +60,7 @@ public class SysMenuController {
         logger.info("菜单选择树");
         AjaxResult ajaxResult = AjaxResult.success();
         List<Menu> menus = menuService.selectMenuList();
-        ajaxResult.put("menus", menuService.buildMenuTreeSelect(menus));
+        ajaxResult.put("data", menuService.buildMenuTreeSelect(menus));
         logger.info("菜单选择树 ajaxResult:[{}] ",ajaxResult.toString());
         return ajaxResult;
     }
@@ -73,7 +73,7 @@ public class SysMenuController {
     {
         List<Menu> menus = menuService.selectMenuList();
         AjaxResult ajax = AjaxResult.success();
-//        ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
+        ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
         ajax.put("menus", menuService.buildMenuTreeSelect(menus));
         return ajax;
     }

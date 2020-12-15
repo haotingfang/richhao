@@ -135,15 +135,15 @@ public class RoleServiceImpl implements RoleService {
         int rows = 1;
         // 新增用户与角色管理
         List<RoleMenu> list = new ArrayList<RoleMenu>();
-        for (Long menuId : role.getMenus())
-        {
-            RoleMenu rm = new RoleMenu();
-            rm.setRoleId(role.getId());
-            rm.setMenuId(menuId);
-            list.add(rm);
+        if (role.getMenus() != null) {
+            for (Long menuId : role.getMenus()) {
+                RoleMenu rm = new RoleMenu();
+                rm.setRoleId(role.getId());
+                rm.setMenuId(menuId);
+                list.add(rm);
+            }
         }
-        if (list.size() > 0)
-        {
+        if (list.size() > 0) {
             rows = roleMenuMapper.batchRoleMenu(list);
         }
         return rows;

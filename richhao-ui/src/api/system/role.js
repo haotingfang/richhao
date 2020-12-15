@@ -20,7 +20,7 @@ export function getRole(roleId) {
 // 新增角色
 export function addRole(data) {
   return request({
-    url: '/system/role',
+    url: '/system/role/addRole',
     method: 'post',
     data: data
   })
@@ -29,8 +29,8 @@ export function addRole(data) {
 // 修改角色
 export function updateRole(data) {
   return request({
-    url: '/system/role',
-    method: 'put',
+    url: '/system/role/editRole',
+    method: 'post',
     data: data
   })
 }

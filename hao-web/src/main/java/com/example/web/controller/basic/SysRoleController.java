@@ -75,7 +75,7 @@ public class SysRoleController {
     @ApiOperation("角色详情编辑")
     @PreAuthorize("hasAuthority('system:role:edit')")
     @PostMapping("/editRole")
-    public AjaxResult editRole(@RequestBody Role role)
+    public AjaxResult editRole(@Validated @RequestBody Role role)
     {
         logger.info("角色详情编辑 role:[{}] ",role);
         AjaxResult ajaxResult = roleService.editRole(role);

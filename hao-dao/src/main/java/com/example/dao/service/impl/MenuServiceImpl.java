@@ -233,4 +233,9 @@ public class MenuServiceImpl implements MenuService {
         return returnList;
     }
 
+    public List<Integer> selectMenuListByRoleId(Long roleId){
+        List<Integer> checkedKeys = menuMapper.selectMenuListByRoleId(roleId);
+        return checkedKeys;
+    }
+
 }
