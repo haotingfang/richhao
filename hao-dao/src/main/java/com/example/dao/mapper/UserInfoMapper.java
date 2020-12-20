@@ -3,6 +3,8 @@ package com.example.dao.mapper;
 import com.example.common.core.domain.entity.UserInfo;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserInfoMapper {
 
@@ -37,4 +39,12 @@ public interface UserInfoMapper {
      * @return 更新的条数
      */
     public int addUser(UserInfo userInfo);
+
+    /**
+     * 插入用户信息
+     *
+     * @param userInfo 用户信息
+     * @return 更新的条数
+     */
+    public List<UserInfo> selectUserList(UserInfo userInfo);
 }

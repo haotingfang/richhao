@@ -1,5 +1,6 @@
 package com.example.dao.service;
 
+import com.example.common.core.domain.TableDataInfo;
 import com.example.common.core.domain.entity.UserInfo;
 
 public interface UserService {
@@ -11,4 +12,7 @@ public interface UserService {
      * @return 用户对象信息
      */
     public UserInfo selectUserByUserName(String userName);
+
+
+    public TableDataInfo selectUserList(UserInfo userInfo,Integer pageSize , Integer pageNum);
 }

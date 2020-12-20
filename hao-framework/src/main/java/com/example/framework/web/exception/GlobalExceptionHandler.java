@@ -17,6 +17,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public AjaxResult baseException(RuntimeException e)
     {
+        log.error("-------------------------------------异常信息-----------------------------------------------");
+        e.printStackTrace();
         return AjaxResult.error(e.getMessage());
     }
 }

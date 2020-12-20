@@ -104,5 +104,25 @@
         )
     </insert>
 
+    <select id="selectUserList" resultMap="UserInfoResult">
+        <include refid="selectUserVoSimple"/>
+        where 1=1
+        <if test="userName != null and userName != ''">
+            AND u.user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND u.status = #{status}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            AND u.phone_number like concat('%', #{phoneNumber}, '%')
+        </if>
+        <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
+    </select>
+
 
 </mapper>

@@ -1,15 +1,6 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
-      <el-col :span="4" :xs="24">
-        <div class="head-container">
-          <el-input v-model="deptName" placeholder="请输入部门名称" clearable size="small" prefix-icon="el-icon-search" style="margin-bottom: 20px" />
-        </div>
-        <div class="head-container">
-          <el-tree :data="deptOptions" :props="defaultProps" :expand-on-click-node="false" :filter-node-method="filterNode" ref="tree" default-expand-all @node-click="handleNodeClick" />
-        </div>
-      </el-col>
       <!--用户数据-->
       <el-col :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
@@ -38,16 +29,10 @@
             <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAdd" v-hasPermi="['system:user:add']">新增</el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="success" icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate" v-hasPermi="['system:user:edit']">修改</el-button>
-          </el-col>
-          <el-col :span="1.5">
             <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button type="info" icon="el-icon-upload2" size="mini" @click="handleImport" v-hasPermi="['system:user:import']">导入</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="warning" icon="el-icon-download" size="mini" @click="handleExport" v-hasPermi="['system:user:export']">导出</el-button>
           </el-col>
           <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
@@ -57,7 +42,6 @@
           <el-table-column label="用户编号" align="center" prop="userId" />
           <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" />
           <el-table-column label="用户昵称" align="center" prop="nickName" :show-overflow-tooltip="true" />
-          <el-table-column label="部门" align="center" prop="dept.deptName" :show-overflow-tooltip="true" />
           <el-table-column label="手机号码" align="center" prop="phonenumber" width="120" />
           <el-table-column label="状态" align="center">
             <template slot-scope="scope">
@@ -89,11 +73,6 @@
           <el-col :span="12">
             <el-form-item label="用户昵称" prop="nickName">
               <el-input v-model="form.nickName" placeholder="请输入用户昵称" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="归属部门" prop="deptId">
-              <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" placeholder="请选择归属部门" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -138,13 +117,6 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="岗位">
-              <el-select v-model="form.postIds" multiple placeholder="请选择">
-                <el-option v-for="item in postOptions" :key="item.postId" :label="item.postName" :value="item.postId" :disabled="item.status == 1"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-col :span="12">
             <el-form-item label="角色">
               <el-select v-model="form.roleIds" multiple placeholder="请选择">
@@ -231,8 +203,6 @@ export default {
       deptOptions: undefined,
       // 是否显示弹出层
       open: false,
-      // 部门名称
-      deptName: undefined,
       // 默认密码
       initPassword: undefined,
       // 日期范围
@@ -241,8 +211,6 @@ export default {
       statusOptions: [],
       // 性别状态字典
       sexOptions: [],
-      // 岗位选项
-      postOptions: [],
       // 角色选项
       roleOptions: [],
       // 表单参数
@@ -273,7 +241,6 @@ export default {
         userName: undefined,
         phonenumber: undefined,
         status: undefined,
-        deptId: undefined,
       },
       // 表单校验
       rules: {
@@ -282,9 +249,6 @@ export default {
         ],
         nickName: [
           { required: true, message: "用户昵称不能为空", trigger: "blur" },
-        ],
-        deptId: [
-          { required: true, message: "归属部门不能为空", trigger: "blur" },
         ],
         password: [
           { required: true, message: "用户密码不能为空", trigger: "blur" },
@@ -308,15 +272,8 @@ export default {
       },
     };
   },
-  watch: {
-    // 根据名称筛选部门树
-    deptName(val) {
-      this.$refs.tree.filter(val);
-    },
-  },
   created() {
     this.getList();
-    this.getTreeselect();
     this.getDicts("sys_normal_disable").then((response) => {
       this.statusOptions = response.data;
     });
@@ -338,12 +295,6 @@ export default {
           this.loading = false;
         }
       );
-    },
-    /** 查询部门下拉树结构 */
-    getTreeselect() {
-      treeselect().then((response) => {
-        this.deptOptions = response.data;
-      });
     },
     // 筛选节点
     filterNode(value, data) {
@@ -420,7 +371,6 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      this.getTreeselect();
       getUser().then((response) => {
         this.postOptions = response.posts;
         this.roleOptions = response.roles;
@@ -432,7 +382,6 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      this.getTreeselect();
       const userId = row.userId || this.ids;
       getUser(userId).then((response) => {
         this.form = response.data;
