@@ -25,6 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserInfo selectUserByUserId(Long userId) {
+        UserInfo userInfo = userInfoMapper.selectUserByUserId(userId);
+        return userInfo;
+    }
+
+    @Override
     public TableDataInfo selectUserList(UserInfo userInfo, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserInfo> list = userInfoMapper.selectUserList(userInfo);

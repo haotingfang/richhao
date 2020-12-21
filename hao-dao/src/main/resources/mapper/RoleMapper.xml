@@ -136,13 +136,13 @@
         </foreach>
     </update>
 
-
-
-
-
-
-
-
+    <select id="selectRoleListByUserId" parameterType="Long" resultType="Integer">
+       select r.id
+        from  role r
+	        left join relation_user_role ur on ur.role_id = r.id
+	        left join user_info u on u.user_id = ur.user_id
+	    where u.user_id = #{userId}
+    </select>
 
 
 </mapper>

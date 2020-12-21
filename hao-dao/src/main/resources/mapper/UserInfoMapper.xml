@@ -25,8 +25,9 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
-        <!--<association property="dept"    column="dept_id" javaType="SysDept" resultMap="deptResult" />
-        <collection  property="roles"   javaType="java.util.List"        resultMap="RoleResult" />-->
+<!--
+        <collection  property="roles"   javaType="java.util.List"     resultMap="RoleResult" />
+-->
     </resultMap>
 
 
@@ -43,6 +44,13 @@
         <include refid="selectUserVoSimple"/>
         where u.user_name = #{userName}
     </select>
+
+    <select id="selectUserByUserId" parameterType="Long" resultMap="UserInfoResult">
+        <include refid="selectUserVoSimple"/>
+        where u.user_id = #{userId}
+    </select>
+
+
 
     <select id="selectUserByOpenId" parameterType="String" resultMap="UserInfoResult">
         <include refid="selectUserVoSimple"/>

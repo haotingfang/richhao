@@ -3,6 +3,7 @@ package com.example.dao.mapper;
 import com.example.common.core.domain.entity.Role;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public interface RoleMapper {
     public int updateRole(Role role);
 
     public int deleteRoles(@Param("ids") Long[] ids,@Param("updateBy") String updateBy);
+
+    public List<Integer> selectRoleListByUserId(Long userId);
 
 
 }

@@ -25,6 +25,10 @@ public interface RoleService {
 
     public AjaxResult updateRoleStatus(Role role);
 
+    public List<Role> selectAllRole();
+
+    public List<Integer> selectRoleListByUserId(Long userId);
+
 
 
 }

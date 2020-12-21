@@ -124,6 +124,18 @@ public class RoleServiceImpl implements RoleService {
         return AjaxResult.success();
     }
 
+    @Override
+    public List<Role> selectAllRole() {
+        List<Role> list = roleMapper.selectRoleList(null);
+        return list;
+    }
+
+    @Override
+    public List<Integer> selectRoleListByUserId(Long userId) {
+        List<Integer> roleIds = roleMapper.selectRoleListByUserId(userId);
+        return roleIds;
+    }
+
 
     /**
      * 新增角色菜单信息

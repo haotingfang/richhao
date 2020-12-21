@@ -13,6 +13,14 @@ public interface UserService {
      */
     public UserInfo selectUserByUserName(String userName);
 
+    /**
+     * 通过用户id查询用户
+     *
+     * @param userId 用户id
+     * @return 用户对象信息
+     */
+    public UserInfo selectUserByUserId(Long userId);
+
 
     public TableDataInfo selectUserList(UserInfo userInfo,Integer pageSize , Integer pageNum);
 }

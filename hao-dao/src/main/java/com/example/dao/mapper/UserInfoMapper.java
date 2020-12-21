@@ -17,6 +17,14 @@ public interface UserInfoMapper {
     public UserInfo selectUserByUserName(String userName);
 
     /**
+     * 通过用户id查询用户
+     *
+     * @param userId 用户id
+     * @return 用户对象信息
+     */
+    public UserInfo selectUserByUserId(Long userId);
+
+    /**
      * 通过openId查询用户
      *
      * @param openId openId
