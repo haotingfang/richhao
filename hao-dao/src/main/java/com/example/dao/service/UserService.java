@@ -1,6 +1,8 @@
 package com.example.dao.service;
 
+import com.example.common.core.domain.AjaxResult;
 import com.example.common.core.domain.TableDataInfo;
+import com.example.common.core.domain.entity.Role;
 import com.example.common.core.domain.entity.UserInfo;
 
 public interface UserService {
@@ -23,4 +25,10 @@ public interface UserService {
 
 
     public TableDataInfo selectUserList(UserInfo userInfo,Integer pageSize , Integer pageNum);
+
+    public int deleteUser(Long[] userIds);
+
+
+    public AjaxResult updateUserStatus(UserInfo userInfo);
+
 }

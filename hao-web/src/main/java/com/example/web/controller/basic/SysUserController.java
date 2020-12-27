@@ -17,10 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,15 +55,40 @@ public class SysUserController {
         logger.info("用户编辑 userId:[{}] ",userId);
         //用户信息
         UserInfo userInfo = userService.selectUserByUserId(userId);
-        //所有角色信息
+        //所有用户信息
         List<Role> roles = roleService.selectAllRole();
-        //已配置的角色ids
+        //已配置的用户ids
         List<Integer> roleIds =  roleService.selectRoleListByUserId(userId);
         AjaxResult ajaxResult = AjaxResult.success();
         ajaxResult.put("data" , userInfo);
         ajaxResult.put("roles" , roles);
         ajaxResult.put("roleIds" , roleIds);
         logger.info("用户编辑 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
+
+
+    @Log(title = "用户删除" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("用户删除")
+    @PreAuthorize("hasAuthority('system:user:remove')")
+    @DeleteMapping("/{userIds}")
+    public AjaxResult deleteRole(@PathVariable Long[] userIds) {
+        logger.info("用户删除 userIds:[{}] ", userIds);
+        int rows = userService.deleteUser(userIds);
+        AjaxResult ajaxResult = rows > 0 ? AjaxResult.success() : AjaxResult.error();
+        logger.info("用户删除 ajaxResult:[{}] ", ajaxResult.toString());
+        return ajaxResult;
+    }
+
+    @Log(title = "用户停用/启用" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("用户停用/启用")
+//    @PreAuthorize("hasAuthority('system::edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody UserInfo userInfo)
+    {
+        logger.info("用户停用/启用 userInfo:[{}] ",userInfo);
+        AjaxResult ajaxResult = userService.updateUserStatus(userInfo);
+        logger.info("用户停用/启用 ajaxResult:[{}] ",ajaxResult.toString());
         return ajaxResult;
     }
 }

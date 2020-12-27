@@ -1,6 +1,7 @@
 package com.example.dao.mapper;
 
 import com.example.common.core.domain.entity.UserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -33,6 +34,14 @@ public interface UserInfoMapper {
     public UserInfo selectUserByOpenId(String openId);
 
     /**
+     * 删除用户
+     *
+     * @param ids 用户Id
+     * @return 更新的条数
+     */
+    public int deleteUsers(@Param("ids") Long[] ids, @Param("updateBy") String updateBy);
+
+    /**
      * 更新用户信息
      *
      * @param userInfo 用户信息
@@ -55,4 +64,6 @@ public interface UserInfoMapper {
      * @return 更新的条数
      */
     public List<UserInfo> selectUserList(UserInfo userInfo);
+
+
 }
