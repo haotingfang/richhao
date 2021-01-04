@@ -8,6 +8,7 @@ import com.example.common.core.domain.entity.Role;
 import com.example.common.core.domain.entity.UserInfo;
 import com.example.common.enums.BusinessType;
 import com.example.common.enums.OperatorType;
+import com.example.common.utils.StringUtils;
 import com.example.dao.service.RoleService;
 import com.example.dao.service.UserService;
 import io.swagger.annotations.Api;
@@ -49,20 +50,23 @@ public class SysUserController {
     @Log(title = "用户编辑" , businessType = BusinessType.OTHER , operatorType = OperatorType.MANAGE )
     @ApiOperation("用户编辑")
     @PreAuthorize("hasAuthority('system:user:query')")
-    @GetMapping("/{userId}")
+    @GetMapping(value = { "/", "/{userId}" })
     public AjaxResult list(@PathVariable Long userId)
     {
         logger.info("用户编辑 userId:[{}] ",userId);
-        //用户信息
-        UserInfo userInfo = userService.selectUserByUserId(userId);
-        //所有用户信息
+        //所有角色信息
         List<Role> roles = roleService.selectAllRole();
-        //已配置的用户ids
-        List<Integer> roleIds =  roleService.selectRoleListByUserId(userId);
         AjaxResult ajaxResult = AjaxResult.success();
-        ajaxResult.put("data" , userInfo);
         ajaxResult.put("roles" , roles);
-        ajaxResult.put("roleIds" , roleIds);
+        if(StringUtils.isNotNull(userId)){
+            //用户信息
+            UserInfo userInfo = userService.selectUserByUserId(userId);
+
+            //已配置的用户ids
+            List<Integer> roleIds =  roleService.selectRoleListByUserId(userId);
+            ajaxResult.put("data" , userInfo);
+            ajaxResult.put("roleIds" , roleIds);
+        }
         logger.info("用户编辑 ajaxResult:[{}] ",ajaxResult.toString());
         return ajaxResult;
     }
@@ -89,6 +93,19 @@ public class SysUserController {
         logger.info("用户停用/启用 userInfo:[{}] ",userInfo);
         AjaxResult ajaxResult = userService.updateUserStatus(userInfo);
         logger.info("用户停用/启用 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
+
+
+    @Log(title = "用户密码重置" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
+    @ApiOperation("用户密码重置")
+//    @PreAuthorize("hasAuthority('system::edit')")
+    @PutMapping("/resetPwd")
+    public AjaxResult resetPwd(@RequestBody UserInfo userInfo)
+    {
+        logger.info("用户密码重置 userInfo:[{}] ",userInfo);
+        AjaxResult ajaxResult = userService.updateUserPassword(userInfo);
+        logger.info("用户密码重置 ajaxResult:[{}] ",ajaxResult.toString());
         return ajaxResult;
     }
 }

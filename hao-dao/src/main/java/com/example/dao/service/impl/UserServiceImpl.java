@@ -57,4 +57,13 @@ public class UserServiceImpl implements UserService {
         return AjaxResult.success();
     }
 
+    @Override
+    @Transactional
+    public AjaxResult updateUserPassword(UserInfo userInfo) {
+        String userName = SecurityUtils.getUserName();
+        userInfo.setUpdateBy(userName);
+        userInfoMapper.updateUserById(userInfo);
+        return AjaxResult.success();
+    }
+
 }
