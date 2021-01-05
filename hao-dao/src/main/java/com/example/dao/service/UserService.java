@@ -31,4 +31,6 @@ public interface UserService {
 
     public AjaxResult updateUserStatus(UserInfo userInfo);
 
+    public AjaxResult updateUserPassword(UserInfo userInfo);
+
 }
