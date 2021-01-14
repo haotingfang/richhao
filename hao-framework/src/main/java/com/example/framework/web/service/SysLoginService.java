@@ -139,7 +139,7 @@ public class SysLoginService {
             wxuserInfo.setOpenId(openId);
             wxuserInfo.setUserName(openId);
             wxuserInfo.setPassword(SecurityUtils.encryptPassword(defaultPassword));
-            wxuserInfo.setUserType(Integer.parseInt(UserType.ORDINARY_MEMBER.getCode()));
+            wxuserInfo.setUserType(UserType.ORDINARY_MEMBER.getCode());
             wxuserInfo.setStatus(CommonStatus.OK.getCode());
             wxuserInfo.setDelFlag(DelFlag.EXIST.getCode());
             int i = userInfoMapper.addUser(wxuserInfo);

@@ -120,7 +120,7 @@
           <el-col :span="12">
             <el-form-item label="角色">
               <el-select v-model="form.roleIds" multiple placeholder="请选择">
-                <el-option v-for="item in roleOptions" :key="item.roleId" :label="item.roleName" :value="item.roleId" :disabled="item.status == 1"></el-option>
+                <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id" :disabled="item.status == 1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -199,8 +199,6 @@ export default {
       userList: null,
       // 弹出层标题
       title: "",
-      // 部门树选项
-      deptOptions: undefined,
       // 是否显示弹出层
       open: false,
       // 默认密码
@@ -291,7 +289,7 @@ export default {
       listUser(this.addDateRange(this.queryParams, this.dateRange)).then(
         (response) => {
           this.userList = response.rows;
-          this.total = response.total;
+          this.total = response.totalNum;
           this.loading = false;
         }
       );
@@ -337,7 +335,6 @@ export default {
     reset() {
       this.form = {
         userId: undefined,
-        deptId: undefined,
         userName: undefined,
         nickName: undefined,
         password: undefined,
@@ -346,7 +343,6 @@ export default {
         gender: undefined,
         status: "0",
         remark: undefined,
-        postIds: [],
         roleIds: [],
       };
       this.resetForm("form");
@@ -372,7 +368,6 @@ export default {
     handleAdd() {
       this.reset();
       getUser().then((response) => {
-        this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;
         this.title = "添加用户";
@@ -385,9 +380,7 @@ export default {
       const userId = row.userId || this.ids;
       getUser(userId).then((response) => {
         this.form = response.data;
-        this.postOptions = response.posts;
         this.roleOptions = response.roles;
-        this.form.postIds = response.postIds;
         this.form.roleIds = response.roleIds;
         this.open = true;
         this.title = "修改用户";

@@ -21,10 +21,10 @@ public class UserInfo extends BaseEntity {
     private String userName;
 
     /** 用户类型 0：管理员 ；1：教练 ；2：学员 */
-    private Integer userType;
+    private String userType;
 
     /** 用户性别 1：男 ；2：女*/
-    private Integer gender;
+    private String gender;
 
     /** 用户语言 */
     private String language;
