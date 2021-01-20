@@ -72,6 +72,7 @@
             <if test="avatarUrl != null and avatarUrl != ''">avatar_url = #{avatarUrl},</if>
             <if test="password != null and password != ''">password = #{password},</if>
             <if test="status != null and status != ''">status = #{status},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
             update_time = sysdate()
@@ -79,7 +80,7 @@
         where user_id = #{userId,jdbcType=INTEGER}
     </update>
 
-    <insert id="addUser" parameterType="com.example.common.core.domain.entity.UserInfo">
+    <insert id="addUser" parameterType="com.example.common.core.domain.entity.UserInfo"  useGeneratedKeys="true" keyProperty="userId">
         insert into user_info(
             open_id,
             user_name,
@@ -132,6 +133,9 @@
         </if>
         <if test="status != null and status != ''">
             AND u.status = #{status}
+        </if>
+        <if test="userType != null and userType != ''">
+            AND u.user_type = #{userType}
         </if>
         <if test="phoneNumber != null and phoneNumber != ''">
             AND u.phone_number like concat('%', #{phoneNumber}, '%')

@@ -15,6 +15,11 @@
               <el-option v-for="dict in statusOptions" :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue" />
             </el-select>
           </el-form-item>
+          <el-form-item label="用户类型" prop="userType">
+            <el-select v-model="queryParams.userType" placeholder="用户类型" clearable size="small" style="width: 240px">
+              <el-option v-for="dict in userTypes" :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue" />
+            </el-select>
+          </el-form-item>
           <el-form-item label="创建时间">
             <el-date-picker v-model="dateRange" size="small" style="width: 240px" value-format="yyyy-MM-dd" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
           </el-form-item>
@@ -50,7 +55,7 @@
           </el-table-column>
           <el-table-column label="创建时间" align="center" prop="createTime" width="160">
             <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.createTime) }}</span>
+              <span>{{ scope.row.createTime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
@@ -112,6 +117,16 @@
             <el-form-item label="状态">
               <el-radio-group v-model="form.status">
                 <el-radio v-for="dict in statusOptions" :key="dict.dictValue" :label="dict.dictValue">{{dict.dictLabel}}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+<!--            0：管理员  1：店长 ；2：教练 ；3：普通会员 4：VIP会员-->
+            <el-form-item label="用户类型">
+              <el-radio-group v-model="form.userType" placeholder="请选择">
+                <el-radio v-for="dict in userTypes" :key="dict.dictValue" :label="dict.dictValue" >{{dict.dictLabel}}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -209,6 +224,8 @@ export default {
       statusOptions: [],
       // 性别状态字典
       sexOptions: [],
+      // 用户类型字典
+      userTypes: [],
       // 角色选项
       roleOptions: [],
       // 表单参数
@@ -239,6 +256,7 @@ export default {
         userName: undefined,
         phoneNumber: undefined,
         status: undefined,
+        userTyp: undefined,
       },
       // 表单校验
       rules: {
@@ -278,7 +296,9 @@ export default {
     this.getDicts("sys_user_sex").then((response) => {
       this.sexOptions = response.data;
     });
-    this.getConfigKey("sys.user.initPassword").then((response) => {
+    this.getDicts("sys_user_type").then((response) => {
+      this.userTypes = response.data;
+    });    this.getConfigKey("sys.user.initPassword").then((response) => {
       this.initPassword = response.msg;
     });
   },
@@ -346,6 +366,7 @@ export default {
         email: undefined,
         gender: undefined,
         status: "0",
+        userType: "3",
         remark: undefined,
         roleIds: [],
       };

@@ -4,6 +4,8 @@ import com.example.common.core.domain.BaseEntity;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @ToString(callSuper = true)
 public class UserInfo extends BaseEntity {
@@ -20,7 +22,7 @@ public class UserInfo extends BaseEntity {
     /** 用户账号 */
     private String userName;
 
-    /** 用户类型 0：管理员 ；1：教练 ；2：学员 */
+    /** 用户类型 用户类型 0：管理员  1：店长 ；2：教练 ；3：普通会员 4：VIP会员 */
     private String userType;
 
     /** 用户性别 1：男 ；2：女*/
@@ -62,5 +64,10 @@ public class UserInfo extends BaseEntity {
     /** 备注 */
     private String remark;
 
+    /** 角色对象 */
+    private List<Role> roles;
+
+    /** 角色组 */
+    private Long[] roleIds;
 
 }

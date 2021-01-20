@@ -67,7 +67,7 @@ public interface UserInfoMapper {
 
     public Boolean checkPhoneExist(@Param("phoneNumber") String phoneNumber,@Param("userId") Long userId);
 
-    public Boolean checkEmailExist(@Param("email") String email , @Param("userId") long userId );
+    public Boolean checkEmailExist(@Param("email") String email , @Param("userId") Long userId );
 
 
 }

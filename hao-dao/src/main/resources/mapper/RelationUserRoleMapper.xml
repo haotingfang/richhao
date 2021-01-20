@@ -92,5 +92,10 @@
         where role_id = #{roleId}
     </select>
 
+    <!--通过用户ID删除-->
+    <delete id="deleteByUserId">
+        delete from relation_user_role where user_id = #{userId}
+    </delete>
+
 
 </mapper>

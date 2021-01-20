@@ -84,4 +84,12 @@ public interface RelationUserRoleMapper {
 
     int countUserRoleByRoleId(@Param("roleId") Long roleId);
 
+    /**
+     * 通过用户ID删除数据
+     *
+     * @param userId 主键
+     * @return 影响行数
+     */
+    int deleteByUserId(Long userId);
+
 }
