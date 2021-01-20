@@ -4,8 +4,10 @@ import com.example.common.core.domain.AjaxResult;
 import com.example.common.core.domain.TableDataInfo;
 import com.example.common.core.domain.entity.Role;
 import com.example.common.core.domain.entity.UserInfo;
+import org.springframework.beans.factory.annotation.Value;
 
 public interface UserService {
+
 
     /**
      * 通过用户名查询用户
@@ -32,5 +34,9 @@ public interface UserService {
     public AjaxResult updateUserStatus(UserInfo userInfo);
 
     public AjaxResult updateUserPassword(UserInfo userInfo);
+
+    public AjaxResult edit(UserInfo userInfo);
+
+    public AjaxResult add(UserInfo userInfo);
 
 }

@@ -3,6 +3,7 @@ package com.example.common.enums;
 import com.example.common.core.domain.entity.UserInfo;
 import lombok.Getter;
 
+// 暂定不要  这个就是角色  跟角色会有冲突
 public enum UserType implements BasicEnum  {
    /* 0：管理员  1：店长 ；2：教练 ；3：普通会员 4：VIP会员*/
     ADMIN("0", "管理员"),

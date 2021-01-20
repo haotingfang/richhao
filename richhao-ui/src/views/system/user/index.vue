@@ -119,7 +119,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="角色">
-              <el-select v-model="form.roleIds" multiple placeholder="请选择">
+              <el-select v-model="form.roleIds" multiple placeholder="请选择" @change="selectRole">
                 <el-option v-for="item in roleOptions" :key="item.id" :label="item.roleName" :value="item.id" :disabled="item.status == 1"></el-option>
               </el-select>
             </el-form-item>
@@ -283,6 +283,10 @@ export default {
     });
   },
   methods: {
+    selectRole(){
+      this.$forceUpdate();
+    },
+
     /** 查询用户列表 */
     getList() {
       this.loading = true;

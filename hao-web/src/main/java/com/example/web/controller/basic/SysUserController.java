@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class SysUserController {
     @ApiOperation("用户编辑")
     @PreAuthorize("hasAuthority('system:user:query')")
     @GetMapping(value = { "/", "/{userId}" })
-    public AjaxResult list(@PathVariable Long userId)
+    public AjaxResult list(@PathVariable(value = "userId" , required = false ) Long userId)
     {
         logger.info("用户编辑 userId:[{}] ",userId);
         //所有角色信息
@@ -99,13 +100,35 @@ public class SysUserController {
 
     @Log(title = "用户密码重置" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
     @ApiOperation("用户密码重置")
-//    @PreAuthorize("hasAuthority('system::edit')")
+//    @PreAuthorize("hasAuthority('system:user:edit')")
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody UserInfo userInfo)
     {
         logger.info("用户密码重置 userInfo:[{}] ",userInfo);
         AjaxResult ajaxResult = userService.updateUserPassword(userInfo);
         logger.info("用户密码重置 ajaxResult:[{}] ",ajaxResult.toString());
+        return ajaxResult;
+    }
+
+    @Log(title = "用户修改" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE)
+    @ApiOperation("用户修改")
+    @PreAuthorize("hasAnyAuthority('system:user:edit')")
+    @PutMapping
+    public AjaxResult edit(@Validated @RequestBody UserInfo userInfo){
+        logger.info("用户修改 start  userInfo:"+userInfo);
+        AjaxResult ajaxResult =  userService.edit(userInfo);
+        logger.info("用户修改 end userInfo:"+ajaxResult.toString());
+        return ajaxResult;
+    }
+
+    @Log(title = "用户新增" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE)
+    @ApiOperation("用户新增")
+    @PreAuthorize("hasAnyAuthority('system:user:edit')")
+    @PostMapping
+    public AjaxResult add(@Validated @RequestBody UserInfo userInfo){
+        logger.info("用户新增 start  userInfo:"+userInfo);
+        AjaxResult ajaxResult =  userService.add(userInfo);
+        logger.info("用户新增 end userInfo:"+ajaxResult.toString());
         return ajaxResult;
     }
 }

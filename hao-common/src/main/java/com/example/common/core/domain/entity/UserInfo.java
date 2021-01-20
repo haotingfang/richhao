@@ -59,5 +59,8 @@ public class UserInfo extends BaseEntity {
     /** 删除状态（0存在 2删除） */
     private String delFlag;
 
+    /** 备注 */
+    private String remark;
+
 
 }
