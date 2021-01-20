@@ -27,10 +27,6 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Value("${wx.defaultPassword}")
-    private String defaultPassword;
-
-
     @Autowired
     private UserInfoMapper userInfoMapper;
 

@@ -13,6 +13,7 @@ import com.example.common.utils.ConvertUtils;
 import com.example.common.utils.EnumUtil;
 import com.example.common.utils.SecurityUtils;
 import com.example.dao.mapper.UserInfoMapper;
+import com.example.dao.service.ConfigService;
 import com.example.dao.service.MenuService;
 import com.example.dao.service.RoleService;
 import com.example.dao.service.impl.MenuServiceImpl;
@@ -38,14 +39,17 @@ public class SysLoginService {
 
     private static Logger logger = LoggerFactory.getLogger(SysLoginService.class);
 
-    @Value("${wx.defaultPassword}")
-    private String defaultPassword;
+    @Value("${wx.defaultPasswordKey}")
+    private String defaultPasswordKey;
 
     @Resource
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private ConfigService configService
 
     @Autowired
     private WxMaService wxMaService;
@@ -138,6 +142,7 @@ public class SysLoginService {
         if (userInfo == null) {
             wxuserInfo.setOpenId(openId);
             wxuserInfo.setUserName(openId);
+            String defaultPassword = configService.selectConfigByKey(defaultPasswordKey);
             wxuserInfo.setPassword(SecurityUtils.encryptPassword(defaultPassword));
             wxuserInfo.setUserType(UserType.ORDINARY_MEMBER.getCode());
             wxuserInfo.setStatus(CommonStatus.OK.getCode());

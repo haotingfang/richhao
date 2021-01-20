@@ -298,7 +298,8 @@ export default {
     });
     this.getDicts("sys_user_type").then((response) => {
       this.userTypes = response.data;
-    });    this.getConfigKey("sys.user.initPassword").then((response) => {
+    });
+    this.getConfigKey("sys.user.initPassword").then((response) => {
       this.initPassword = response.msg;
     });
   },

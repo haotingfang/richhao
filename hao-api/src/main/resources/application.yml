@@ -85,4 +85,4 @@ swagger:
 wx:
   appid: wx685701811311318a
   secret: 73e6380863a63482b39859bf4e852cde
-  defaultPassword: richfu
+  defaultPasswordkey: sys.user.initPassword
