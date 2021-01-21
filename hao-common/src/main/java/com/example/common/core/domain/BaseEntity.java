@@ -31,9 +31,7 @@ public class BaseEntity implements Serializable {
     @JsonIgnore
     private String beginTime;
 
-/*
-    * 结束时间
-*/
+    /** 结束时间 */
     @JsonIgnore
     private String endTime;
 

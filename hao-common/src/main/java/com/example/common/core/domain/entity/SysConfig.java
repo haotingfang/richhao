@@ -17,7 +17,7 @@ public class SysConfig extends BaseEntity {
     /**
      * 参数主键
      */
-    private Integer configId;
+    private Long configId;
     /**
      * 参数名称
      */
@@ -35,21 +35,9 @@ public class SysConfig extends BaseEntity {
      */
     private String configType;
     /**
-     * 创建者
+     * 是否删除（0：正常 2 ：删除）
      */
-    private String createBy;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 更新者
-     */
-    private String updateBy;
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
+    private String delFlag;
     /**
      * 备注
      */

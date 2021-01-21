@@ -4,6 +4,7 @@ import com.example.common.core.domain.entity.SysConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,7 +30,9 @@ public interface SysConfigMapper {
      * @param configId 主键
      * @return 实例对象
      */
-    SysConfig queryById(Integer configId);
+    SysConfig queryById(Long configId);
+
+    List<String> getDeleteKeys(@Param("configIds") Long[] configIds);
 
     /**
      * 查询指定行数据
@@ -38,16 +41,9 @@ public interface SysConfigMapper {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<SysConfig> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<SysConfig> selectConfigList(SysConfig sysConfig);
 
 
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param sysConfig 实例对象
-     * @return 对象列表
-     */
-    List<SysConfig> queryAll(SysConfig sysConfig);
 
     /**
      * 新增数据
@@ -57,21 +53,15 @@ public interface SysConfigMapper {
      */
     int insert(SysConfig sysConfig);
 
-    /**
-     * 批量新增数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<SysConfig> 实例对象列表
-     * @return 影响行数
-     */
-    int insertBatch(@Param("entities") List<SysConfig> entities);
 
     /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
+     * 新增或按主键更新数据
      *
-     * @param entities List<SysConfig> 实例对象列表
+     * @param sysConfig  实例对象
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<SysConfig> entities);
+    int insertOrUpdate(SysConfig sysConfig);
+
 
     /**
      * 修改数据
@@ -87,6 +77,6 @@ public interface SysConfigMapper {
      * @param configId 主键
      * @return 影响行数
      */
-    int deleteById(Integer configId);
+    int deleteByIds(@Param("ids") Long[] ids, @Param("updateBy") String updateBy);
 
 }

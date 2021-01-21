@@ -39,7 +39,7 @@ public class SysLoginService {
 
     private static Logger logger = LoggerFactory.getLogger(SysLoginService.class);
 
-    @Value("${wx.defaultPasswordKey}")
+    @Value("${wx.defaultPasswordkey}")
     private String defaultPasswordKey;
 
     @Resource
@@ -49,7 +49,7 @@ public class SysLoginService {
     private TokenService tokenService;
 
     @Autowired
-    private ConfigService configService
+    private ConfigService configService;
 
     @Autowired
     private WxMaService wxMaService;

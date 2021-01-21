@@ -41,91 +41,68 @@
     <select id="queryById" resultMap="SysConfigMap">
         select
           config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark
-        from rich-hao.sys_config
+        from sys_config
         where config_id = #{configId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SysConfigMap">
-        select
-          config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark
-        from rich-hao.sys_config
-        limit #{offset}, #{limit}
+    <select id="getDeleteKeys" resultType="java.lang.String">
+        select concat("sys_config:",config_key )
+        from sys_config
+        where config_id in
+        <foreach collection="configIds" item="configId" open="(" separator="," close=")">
+            #{configId}
+        </foreach>
     </select>
 
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysConfigMap">
+    <!--查询指定行数据-->
+    <select id="selectConfigList" resultMap="SysConfigMap">
         select
-        config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time,
-        remark
-        from rich-hao.sys_config
-        <where>
-            <if test="configId != null">
-                and config_id = #{configId}
-            </if>
-            <if test="configName != null and configName != ''">
-                and config_name = #{configName}
-            </if>
-            <if test="configKey != null and configKey != ''">
-                and config_key = #{configKey}
-            </if>
-            <if test="configValue != null and configValue != ''">
-                and config_value = #{configValue}
-            </if>
-            <if test="configType != null and configType != ''">
-                and config_type = #{configType}
-            </if>
-            <if test="createBy != null and createBy != ''">
-                and create_by = #{createBy}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateBy != null and updateBy != ''">
-                and update_by = #{updateBy}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
-            <if test="remark != null and remark != ''">
-                and remark = #{remark}
-            </if>
-        </where>
+          config_id, config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark
+        from sys_config
+        where ( del_flag = '0' or del_flag is null)
+        <if test="configName != null and configName != ''">
+           and config_name like concat('%', #{configName}, '%')
+        </if>
+        <if test="configKey != null and configKey != ''">
+            and config_key like concat('%', #{configKey}, '%')
+        </if>
+        <if test="configType != null and configType != ''">
+            and config_type = #{configType}
+        </if>
+        <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
     </select>
+
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="configId" useGeneratedKeys="true">
-        insert into rich-hao.sys_config(config_name, config_key, config_value, config_type, create_by, create_time, update_by, update_time, remark)
-        values (#{configName}, #{configKey}, #{configValue}, #{configType}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{remark})
+        insert into sys_config(config_name, config_key, config_value, config_type, del_flag, create_by, create_time, update_by, update_time, remark)
+        values (#{configName}, #{configKey}, #{configValue}, #{configType}, #{delFlag}, #{createBy}, sysdate(), #{updateBy}, sysdate(), #{remark})
     </insert>
 
-    <insert id="insertBatch" keyProperty="configId" useGeneratedKeys="true">
-        insert into rich-hao.sys_config(config_name, config_key, config_value, config_type, create_by, create_time,
+
+    <insert id="insertOrUpdate" keyProperty="configId" useGeneratedKeys="true">
+        insert into sys_config(config_name, config_key, config_value, config_type, create_by, create_time,
         update_by, update_time, remark)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.configName}, #{entity.configKey}, #{entity.configValue}, #{entity.configType}, #{entity.createBy},
-            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="configId" useGeneratedKeys="true">
-        insert into rich-hao.sys_config(config_name, config_key, config_value, config_type, create_by, create_time,
-        update_by, update_time, remark)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.configName}, #{entity.configKey}, #{entity.configValue}, #{entity.configType}, #{entity.createBy},
-            #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.remark})
+            sysdate(), #{entity.updateBy}, sysdate(), #{entity.remark})
         </foreach>
         on duplicate key update
         config_name = values(config_name) , config_key = values(config_key) , config_value = values(config_value) ,
-        config_type = values(config_type) , create_by = values(create_by) , create_time = values(create_time) ,
-        update_by = values(update_by) , update_time = values(update_time) , remark = values(remark)
+        config_type = values(config_type) , create_by = values(create_by) , create_time = values(sysdate()) ,
+        update_by = values(update_by) , update_time = values(sysdate()) , remark = values(remark)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update rich-hao.sys_config
+        update sys_config
         <set>
             <if test="configName != null and configName != ''">
                 config_name = #{configName},
@@ -139,17 +116,11 @@
             <if test="configType != null and configType != ''">
                 config_type = #{configType},
             </if>
-            <if test="createBy != null and createBy != ''">
-                create_by = #{createBy},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
             <if test="updateBy != null and updateBy != ''">
                 update_by = #{updateBy},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime},
+                update_time = sysdate(),
             </if>
             <if test="remark != null and remark != ''">
                 remark = #{remark},
@@ -159,8 +130,19 @@
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from rich-hao.sys_config where config_id = #{configId}
+    <delete id="deleteByIds">
+        update sys_config
+        <set>
+            del_flag = 2,
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+                update_time = sysdate()
+        </set>
+        where config_id in
+        <foreach collection="ids" item="configId" open="(" separator="," close=")">
+            #{configId}
+        </foreach>
     </delete>
 
 </mapper>
