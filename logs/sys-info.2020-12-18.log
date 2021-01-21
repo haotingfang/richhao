@@ -1,0 +1,16 @@
+16:35:12.748 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.5.Final
+16:35:12.803 [main] INFO  c.e.w.HaoWebApplication - [logStarting,55] - Starting HaoWebApplication on kk-MacBook-Pro.local with PID 3286 (/Users/dasouche/IdeaProjects/rich/richhao/hao-web/target/classes started by dasouche in /Users/dasouche/IdeaProjects/rich/richhao)
+16:35:12.804 [main] INFO  c.e.w.HaoWebApplication - [logStartupProfileInfo,655] - The following profiles are active: druid
+16:35:15.502 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+16:35:15.503 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:35:15.504 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.38]
+16:35:15.637 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:35:16.301 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+16:35:17.309 [main] INFO  c.a.d.p.DruidDataSource - [init,994] - {dataSource-1} inited
+16:35:18.840 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - [initHandlerMethods,69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+16:35:19.674 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+16:35:19.725 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,160] - Context refreshed
+16:35:19.758 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,163] - Found 1 custom documentation plugin(s)
+16:35:20.071 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - [scan,41] - Scanning for api listing references
+16:35:20.312 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: listUsingGET_1
+16:35:20.356 [main] INFO  c.e.w.HaoWebApplication - [logStarted,61] - Started HaoWebApplication in 8.257 seconds (JVM running for 10.126)

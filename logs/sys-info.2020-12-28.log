@@ -1,0 +1,22 @@
+17:15:02.491 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.5.Final
+17:15:02.531 [main] INFO  c.e.w.HaoWebApplication - [logStarting,55] - Starting HaoWebApplication on kk-MacBook-Pro.local with PID 26473 (/Users/dasouche/IdeaProjects/rich/richhao/hao-web/target/classes started by dasouche in /Users/dasouche/IdeaProjects/rich/richhao)
+17:15:02.532 [main] INFO  c.e.w.HaoWebApplication - [logStartupProfileInfo,655] - The following profiles are active: druid
+17:15:05.243 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+17:15:05.244 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:15:05.244 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.38]
+17:15:05.367 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:15:06.106 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+17:15:07.563 [main] INFO  c.a.d.p.DruidDataSource - [init,994] - {dataSource-1} inited
+17:15:09.074 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - [initHandlerMethods,69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+17:15:09.982 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+17:15:10.019 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,160] - Context refreshed
+17:15:10.268 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,163] - Found 1 custom documentation plugin(s)
+17:15:10.324 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - [scan,41] - Scanning for api listing references
+17:15:10.581 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: listUsingGET_1
+17:15:10.584 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: changeStatusUsingPUT_1
+17:15:10.586 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: deleteRoleUsingDELETE_1
+17:15:10.593 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: listUsingGET_2
+17:15:10.594 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - [startingWith,40] - Generating unique operation named: listUsingGET_3
+17:15:10.636 [main] INFO  c.e.w.HaoWebApplication - [logStarted,61] - Started HaoWebApplication in 8.638 seconds (JVM running for 10.423)
+17:15:31.011 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2029] - {dataSource-1} closing ...
+17:15:31.027 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2101] - {dataSource-1} closed

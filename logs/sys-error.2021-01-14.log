@@ -1,0 +1,98 @@
+14:27:19.955 [http-nio-8080-exec-1] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+14:27:34.469 [http-nio-8080-exec-2] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+14:28:22.335 [http-nio-8080-exec-3] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+14:29:02.637 [http-nio-8080-exec-7] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+15:37:15.019 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - [log,175] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.data.redis.serializer.SerializationException: Cannot deserialize; nested exception is org.springframework.core.serializer.support.SerializationFailedException: Failed to deserialize payload. Is the byte array a result of corresponding serialization for DefaultDeserializer?; nested exception is java.io.InvalidClassException: com.example.common.core.domain.entity.UserInfo; local class incompatible: stream classdesc serialVersionUID = -2187456850664279310, local class serialVersionUID = -6635570868991826393
+	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.deserialize(JdkSerializationRedisSerializer.java:84)
+	at org.springframework.data.redis.core.AbstractOperations.deserializeValue(AbstractOperations.java:335)
+	at org.springframework.data.redis.core.AbstractOperations$ValueDeserializingRedisCallback.doInRedis(AbstractOperations.java:61)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:228)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:188)
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:96)
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:53)
+	at com.example.common.core.cache.RedisCache.getCacheObject(RedisCache.java:84)
+	at com.example.framework.web.service.TokenService.getLoginUser(TokenService.java:123)
+	at com.example.framework.security.filter.JwtAuthenticationTokenFilter.doFilterInternal(JwtAuthenticationTokenFilter.java:32)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.springframework.core.serializer.support.SerializationFailedException: Failed to deserialize payload. Is the byte array a result of corresponding serialization for DefaultDeserializer?; nested exception is java.io.InvalidClassException: com.example.common.core.domain.entity.UserInfo; local class incompatible: stream classdesc serialVersionUID = -2187456850664279310, local class serialVersionUID = -6635570868991826393
+	at org.springframework.core.serializer.support.DeserializingConverter.convert(DeserializingConverter.java:78)
+	at org.springframework.core.serializer.support.DeserializingConverter.convert(DeserializingConverter.java:36)
+	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.deserialize(JdkSerializationRedisSerializer.java:82)
+	... 56 common frames omitted
+Caused by: java.io.InvalidClassException: com.example.common.core.domain.entity.UserInfo; local class incompatible: stream classdesc serialVersionUID = -2187456850664279310, local class serialVersionUID = -6635570868991826393
+	at java.io.ObjectStreamClass.initNonProxy(ObjectStreamClass.java:699)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2001)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1848)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2001)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1848)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2158)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1665)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2403)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2185)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1665)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:501)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:459)
+	at org.springframework.core.serializer.DefaultDeserializer.deserialize(DefaultDeserializer.java:72)
+	at org.springframework.core.serializer.support.DeserializingConverter.convert(DeserializingConverter.java:73)
+	... 58 common frames omitted
+15:37:17.447 [http-nio-8080-exec-2] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+15:37:23.102 [http-nio-8080-exec-3] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+15:37:24.421 [http-nio-8080-exec-4] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+17:57:32.632 [http-nio-8080-exec-30] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+17:57:37.329 [http-nio-8080-exec-1] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:05:17.130 [http-nio-8080-exec-21] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:05:17.289 [http-nio-8080-exec-23] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:05:21.370 [http-nio-8080-exec-24] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:06:12.305 [http-nio-8080-exec-25] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:06:20.282 [http-nio-8080-exec-26] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:09:27.408 [http-nio-8080-exec-27] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:25:50.050 [http-nio-8080-exec-28] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------
+18:26:44.396 [http-nio-8080-exec-29] ERROR c.e.f.w.e.GlobalExceptionHandler - [baseException,20] - -------------------------------------异常信息-----------------------------------------------

@@ -1,0 +1,11 @@
+16:11:24.697 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.5.Final
+16:11:24.704 [main] INFO  c.e.w.HaoWebApplicationTests - [logStarting,55] - Starting HaoWebApplicationTests on kk-MacBook-Pro.local with PID 22895 (started by dasouche in /Users/dasouche/IdeaProjects/rich/richhao/hao-web)
+16:11:24.789 [main] INFO  c.e.w.HaoWebApplicationTests - [logStartupProfileInfo,655] - The following profiles are active: druid
+16:11:29.075 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+16:11:30.802 [main] INFO  c.a.d.p.DruidDataSource - [init,994] - {dataSource-1} inited
+16:11:34.049 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - [initHandlerMethods,69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+16:11:36.446 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,160] - Context refreshed
+16:11:36.474 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - [start,163] - Found 1 custom documentation plugin(s)
+16:11:36.524 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - [scan,41] - Scanning for api listing references
+16:11:36.637 [main] INFO  c.a.d.p.DruidDataSource - [close,2029] - {dataSource-1} closing ...
+16:11:36.649 [main] INFO  c.a.d.p.DruidDataSource - [close,2101] - {dataSource-1} closed
