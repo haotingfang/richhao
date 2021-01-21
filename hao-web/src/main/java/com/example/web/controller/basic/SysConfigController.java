@@ -61,7 +61,7 @@ public class SysConfigController {
     @ApiOperation("参数设置编辑")
     @PreAuthorize("hasAuthority('system:config:query')")
     @GetMapping(value = { "/{configId}" })
-    public AjaxResult list(@PathVariable(value = "configId" , required = false ) Long configId)
+    public AjaxResult show(@PathVariable(value = "configId" , required = false ) Long configId)
     {
         logger.info("参数设置编辑 userId:[{}] ",configId);
         //参数设置信息

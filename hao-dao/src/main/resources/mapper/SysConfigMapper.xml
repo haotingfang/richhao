@@ -75,6 +75,7 @@
         <if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
             AND date_format(create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
         </if>
+        order by create_time desc
     </select>
 
 

@@ -95,4 +95,12 @@ public interface SysDictDataMapper
      * @return 结果
      */
     public int updateDictDataType(@Param("oldDictType") String oldDictType, @Param("newDictType") String newDictType);
+
+    /**
+     * 获取dict_type
+     *
+     * @param dictCodes 旧字典类型
+     * @return 结果
+     */
+    public String getDictTypeTextByIds(Long dictCodes);
 }

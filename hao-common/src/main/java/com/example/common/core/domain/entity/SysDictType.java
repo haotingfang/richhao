@@ -30,6 +30,9 @@ public class SysDictType extends BaseEntity
     /** 状态（0正常 1停用） */
     private String status;
 
+    /** 备注 */
+    private String remark;
+
     public Long getDictId()
     {
         return dictId;
@@ -85,7 +88,7 @@ public class SysDictType extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-//            .append("remark", getRemark())
+            .append("remark", getRemark())
             .toString();
     }
 }
