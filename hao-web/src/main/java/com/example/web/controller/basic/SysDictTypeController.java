@@ -79,7 +79,7 @@ public class SysDictTypeController {
     @Log(title = "字典类型更新" , businessType = BusinessType.UPDATE , operatorType = OperatorType.MANAGE )
     @ApiOperation("字典类型更新")
     @PreAuthorize("hasAuthority('system:dict:edit')")
-    @PostMapping
+    @PutMapping
     public AjaxResult editDictType(@RequestBody @Validated SysDictType sysDictType)
     {
         logger.info("字典类型更新 sysDictType:[{}] ",sysDictType);

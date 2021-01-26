@@ -7,6 +7,7 @@ import com.example.common.core.domain.TableDataInfo;
 import com.example.common.core.domain.entity.SysConfig;
 import com.example.common.core.domain.entity.SysDictData;
 import com.example.common.core.domain.entity.SysDictType;
+import com.example.common.enums.DelFlag;
 import com.example.common.utils.*;
 import com.example.dao.mapper.SysDictDataMapper;
 import com.example.dao.mapper.SysDictTypeMapper;
@@ -94,6 +95,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Transactional
     public AjaxResult addDictType(SysDictType sysDictType) {
         BeanUtils.addBuildBean(sysDictType);
+        sysDictType.setDelFlag(DelFlag.EXIST.getCode());
         sysDictTypeMapper.insert(sysDictType);
         return AjaxResult.success();
     }

@@ -78,7 +78,7 @@ public class SysDictDataController {
     @ApiOperation("字典数据新增")
     @PreAuthorize("hasAuthority('system:dict:add')")
     @PostMapping
-    public AjaxResult addDictType(@RequestBody @Validated SysDictData sysDictData) {
+    public AjaxResult addDictData(@RequestBody @Validated SysDictData sysDictData) {
         logger.info("字典数据新增 sysDictData:[{}] ", sysDictData);
         AjaxResult ajaxResult = sysDictDataService.addDictData(sysDictData);
         logger.info("字典数据新增 ajaxResult:[{}] ", ajaxResult.toString());
@@ -88,8 +88,8 @@ public class SysDictDataController {
     @Log(title = "字典数据更新", businessType = BusinessType.UPDATE, operatorType = OperatorType.MANAGE)
     @ApiOperation("字典数据更新")
     @PreAuthorize("hasAuthority('system:dict:edit')")
-    @PostMapping
-    public AjaxResult editDictType(@RequestBody @Validated SysDictData sysDictData) {
+    @PutMapping
+    public AjaxResult editDictData(@RequestBody @Validated SysDictData sysDictData) {
         logger.info("字典数据更新 sysDictData:[{}] ", sysDictData);
         AjaxResult ajaxResult = sysDictDataService.editDictData(sysDictData);
         logger.info("字典数据更新 ajaxResult:[{}] ", ajaxResult.toString());
