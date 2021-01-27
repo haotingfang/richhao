@@ -43,7 +43,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     public AjaxResult queryById(Long dictCode) {
         SysDictData sysDictData = sysDictDataMapper.selectDictDataById(dictCode);
         AjaxResult ajaxResult = new AjaxResult();
-        ajaxResult.put("data", ajaxResult);
+        ajaxResult.put("data", sysDictData);
         return ajaxResult;
     }
 

@@ -66,10 +66,10 @@ public class SysDictDataController {
     @Log(title = "字典数据编辑", businessType = BusinessType.OTHER, operatorType = OperatorType.MANAGE)
     @ApiOperation("字典数据编辑")
     @PreAuthorize("hasAuthority('system:dict:query')")
-    @GetMapping(value = {"/{dictDataId}"})
-    public AjaxResult show(@PathVariable(value = "dictTypeId", required = false) Long dictDataId) {
-        logger.info("字典数据编辑 dictDataId:[{}] ", dictDataId);
-        AjaxResult ajaxResult = sysDictDataService.queryById(dictDataId);
+    @GetMapping(value = {"/{dictCode}"})
+    public AjaxResult show(@PathVariable(value = "dictCode", required = false) Long dictCode) {
+        logger.info("字典数据编辑 dictCode:[{}] ", dictCode);
+        AjaxResult ajaxResult = sysDictDataService.queryById(dictCode);
         logger.info("字典数据编辑 ajaxResult:[{}] ", ajaxResult.toString());
         return ajaxResult;
     }

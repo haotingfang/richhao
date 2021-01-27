@@ -65,8 +65,8 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="dictId" useGeneratedKeys="true">
         insert into sys_dict_type
-            (dict_name, dict_type, status, create_by, create_time, update_by, update_time,remark)
-        values (#{dictName}, #{dictType}, #{status}, #{createBy}, sysdate(), #{updateBy}, sysdate(), #{remark})
+            (dict_name, dict_type, status,del_flag, create_by, create_time, update_by, update_time,remark)
+        values (#{dictName}, #{dictType}, #{status},#{delFlag}, #{createBy}, sysdate(), #{updateBy}, sysdate(), #{remark})
     </insert>
 
     <insert id="insertBatch" keyProperty="dictId" useGeneratedKeys="true">

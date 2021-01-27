@@ -78,7 +78,9 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
 
     @Override
     public TableDataInfo selectDictTypeList(SysDictType sysDictType, Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum, pageSize);
+        if (StringUtils.isNotNull(pageSize) && StringUtils.isNotNull(pageNum)) {
+            PageHelper.startPage(pageNum, pageSize);
+        }
         List<SysDictType> list = sysDictTypeMapper.selectDictTypeList(sysDictType);
         TableDataInfo tableDataInfo = TableDataUtils.buildTableDataInfo(list);
         return tableDataInfo;
