@@ -982,4 +982,58 @@ INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.s
 
 -- 20201220
 
-SET FOREIGN_KEY_CHECKS = 1;
+
+-- 20210201
+DROP TABLE IF EXISTS `card`;
+CREATE TABLE `card` (
+                        `id` bigint NOT NULL,
+                        `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '卡 标题 简介',
+                        `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '卡类型（1：次卡；2：期卡）',
+                        `card_count` bigint DEFAULT NULL COMMENT '次卡的次数',
+                        `card_term` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '卡的有效期限（1：周卡；2:月卡；3:季卡；4:半年卡 5：年卡 6:2年卡\n）',
+                        `store_currency` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '门店通用类型（1:通用 ；2:不通用）',
+                        `price` int DEFAULT NULL COMMENT '价格',
+                        `status` char(1) DEFAULT NULL COMMENT '状态（0:正常 1:停用）',
+                        `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '创建者',
+                        `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                        `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '更新者',
+                        `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                        `remark` varchar(255) DEFAULT NULL COMMENT '卡详情描述',
+                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of card
+-- ----------------------------
+BEGIN;
+INSERT INTO `card` VALUES (1, NULL, '1', 30, '5', '1', 3600, '0', 'hao', '2021-01-27 18:41:49', 'hao', '2021-01-27 18:41:59', NULL);
+INSERT INTO `card` VALUES (2, NULL, '1', 50, '5', '1', 6200, '0', 'hao', '2021-01-29 14:43:42', 'hao', '2021-01-29 14:43:49', NULL);
+INSERT INTO `card` VALUES (3, NULL, '1', 80, '6', '1', 8800, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (4, NULL, '1', 100, '6', '1', 10000, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (5, NULL, '2', NULL, '5', '1', 22000, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (6, NULL, '2', NULL, '1', '1', 800, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (7, NULL, '2', NULL, '2', '1', 3200, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (8, NULL, '2', NULL, '3', '1', 8400, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (9, NULL, '2', NULL, '4', '1', 16000, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+INSERT INTO `card` VALUES (10, NULL, '2', NULL, '6', '1', 32000, '0', 'hao', '2021-01-29 14:44:56', 'hao', '2021-01-29 14:45:03', NULL);
+COMMIT;
+
+
+DROP TABLE IF EXISTS `member_card`;
+CREATE TABLE `member_card` (
+                               `id` bigint NOT NULL,
+                               `user_id` bigint NOT NULL COMMENT '学员ID',
+                               `card_id` bigint NOT NULL COMMENT '卡ID',
+                               `card_all_count` int DEFAULT NULL COMMENT '次卡的总次数',
+                               `used_count` int DEFAULT NULL COMMENT '已使用的次数',
+                               `last_count` int DEFAULT NULL COMMENT '剩余次数',
+                               `activation_time` datetime DEFAULT NULL COMMENT '激活时间',
+                               `valid_time` datetime DEFAULT NULL COMMENT '有效时间',
+                               `status` char(1) DEFAULT NULL COMMENT '状态（0:正常 ；1:已过期)',
+                               `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                               `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会员卡';
+
