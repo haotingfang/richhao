@@ -1,5 +1,6 @@
-package entity;
+package com.example.common.core.domain.entity;
 
+import com.example.common.core.domain.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @since 2021-02-02 17:49:31
  */
 @Data
-public class Card implements Serializable {
+public class Card extends BaseEntity {
     private static final long serialVersionUID = 578958986091175150L;
 
     private Long id;
@@ -29,10 +30,10 @@ public class Card implements Serializable {
      */
     private Long cardCount;
     /**
-     * 卡的有效期限（1：周卡；2:月卡；3:季卡；4:半年卡 5：年卡 6:2年卡
+     * 卡的有效期限（天
      * ）
      */
-    private String cardTerm;
+    private Long cardTerm;
     /**
      * 门店通用类型（1:通用 ；2:不通用）
      */
@@ -45,6 +46,10 @@ public class Card implements Serializable {
      * 状态（0:正常 1:停用）
      */
     private String status;
+    /**
+     * 删除状态（0:正常 2:删除）
+     */
+    private String delFlag;
     /**
      * 创建者
      */

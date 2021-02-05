@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询会员卡列表
 export function listCard(query) {
   return request({
-    url: '',
+    url: '/goods/card/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listCard(query) {
 // 查询会员卡详细
 export function getCard(cardId) {
   return request({
-    url: '/' + cardId,
+    url: '/goods/card/' + cardId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getCard(cardId) {
 // 新增会员卡种类
 export function addCard(data) {
   return request({
-    url: '/',
+    url: '/goods/card',
     method: 'post',
     data: data
   })
@@ -29,31 +29,16 @@ export function addCard(data) {
 // 修改会员卡种类
 export function updateCard(data) {
   return request({
-    url: '/',
-    method: 'post',
-    data: data
-  })
-}
-
-
-
-// 会员卡状态修改
-export function changeCardStatus(id, status) {
-  const data = {
-    id,
-    status
-  }
-  return request({
-    url: '/',
+    url: '/goods/card',
     method: 'put',
     data: data
   })
 }
 
 // 删除会员卡种类
-export function delCard(cardId) {
+export function delCard(cardIds) {
   return request({
-    url: '/' + cardId,
+    url: '/goods/card/' + cardIds,
     method: 'delete'
   })
 }

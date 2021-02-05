@@ -17,22 +17,6 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="有效期" prop="cardTerm">
-        <el-select
-          v-model="queryParams.cardTerm"
-          placeholder="有效期"
-          clearable
-          size="small"
-          style="width: 240px"
-        >
-          <el-option
-            v-for="dict in cardTermOptions"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
-          />
-        </el-select>
-      </el-form-item>
       <el-form-item label="门店通用" prop="storeCurrency">
         <el-select
           v-model="queryParams.storeCurrency"
@@ -43,22 +27,6 @@
         >
           <el-option
             v-for="dict in storeCurrency"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="卡状态"
-          clearable
-          size="small"
-          style="width: 240px"
-        >
-          <el-option
-            v-for="dict in statusOptions"
             :key="dict.dictValue"
             :label="dict.dictLabel"
             :value="dict.dictValue"
@@ -103,16 +71,6 @@
       <el-table-column label="有效期" prop="cardTerm"  width="120" />
       <el-table-column label="门店通过类型" prop="storeCurrency"  width="120" />
       <el-table-column label="价格" prop="price"  width="120" />
-      <el-table-column label="状态" align="center" width="100">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.status"
-            active-value="0"
-            inactive-value="1"
-            @change="handleStatusChange(scope.row)"
-          ></el-switch>
-        </template>
-      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
@@ -174,14 +132,8 @@
         <el-form-item label="次数" prop="cardCount">
           <el-input v-model="form.cardCount" placeholder="请输入使用次数" />
         </el-form-item>
-        <el-form-item label="有效期限">
-          <el-radio-group v-model="form.cardTerm">
-            <el-radio
-              v-for="dict in cardTermOptions"
-              :key="dict.dictValue"
-              :label="dict.dictValue"
-            >{{dict.dictLabel}}</el-radio>
-          </el-radio-group>
+        <el-form-item label="有效期限(天)" prop="cardTerm">
+          <el-input v-model="form.cardTerm" placeholder="有效期限(天)" />
         </el-form-item>
         <el-form-item label="门店通用性">
           <el-radio-group v-model="form.storeCurrency">
@@ -219,7 +171,7 @@
 </template>
 
 <script>
-import { listCard, getCard, delCard, addCard, updateCard,  changeCardStatus } from "@/api/system/role";
+import { listCard, getCard, delCard, addCard, updateCard } from "@/api/goods/card";
 
 export default {
   name: "Card",
@@ -255,8 +207,7 @@ export default {
 
       // 卡类型数据字典
       typeOptions: [],
-      // 有效期数据字典
-      cardTermOptions: [],
+
       // 门店通用数据字典
       storeCurrencyOptions: [],
       // 查询参数
@@ -265,7 +216,6 @@ export default {
         pageSize: 10,
         type: undefined,
         cardTerm: undefined,
-        storeCurrency: undefined,
         status: undefined
       },
       // 表单参数
@@ -286,13 +236,10 @@ export default {
     this.getDicts("sys_normal_disable").then(response => {
       this.statusOptions = response.data;
     });
-    this.getDicts("").then(response => {
+    this.getDicts("goods_card_type").then(response => {
       this.typeOptions = response.data;
     });
-    this.getDicts("").then(response => {
-      this.cardTermOptions = response.data;
-    });
-    this.getDicts("").then(response => {
+    this.getDicts("goods_card_store_currency").then(response => {
       this.storeCurrencyOptions = response.data;
     });
   },
@@ -347,7 +294,7 @@ export default {
         price: undefined,
         type: "1",
         cardTerm: "1",
-        storeCurrency: "2",
+        storeCurrency: undefined,
         status: "0",
         remark: undefined
       };
@@ -416,7 +363,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$confirm('是否确认删除会员卡编号为"' + id + '"的数据项?', "警告", {
+      this.$confirm('是否确认删除会员卡caraz编号为"' + id + '"的数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"

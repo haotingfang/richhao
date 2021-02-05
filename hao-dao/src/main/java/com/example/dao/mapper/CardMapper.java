@@ -1,5 +1,6 @@
-package
+package com.example.dao.mapper;
 
+import com.example.common.core.domain.entity.Card;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface CardMapper {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<Card> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Card> queryAllByLimit(Card card);
 
 
     /**
@@ -76,6 +77,6 @@ public interface CardMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteByIds(Long[] ids);
 
 }
