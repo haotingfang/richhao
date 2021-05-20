@@ -8,4 +8,10 @@ public class HtfTest {
     public void bb(){
         System.out.println("----------");
     }
+
+
+    @Test
+    public void cc(){
+        System.out.println("----------");
+    }
 }
