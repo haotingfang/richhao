@@ -20,4 +20,9 @@ public class HtfTest {
     public void ee(){
         System.out.println("----------");
     }
+
+    @Test
+    public void dd(){
+        System.out.println("----------");
+    }
 }
