@@ -8,4 +8,9 @@ public class HtfTest {
     public void bb(){
         System.out.println("----------");
     }
+
+    @Test
+    public void dd(){
+        System.out.println("----------");
+    }
 }
