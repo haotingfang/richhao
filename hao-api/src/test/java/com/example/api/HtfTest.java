@@ -14,4 +14,10 @@ public class HtfTest {
     public void cc(){
         System.out.println("----------");
     }
+
+
+    @Test
+    public void ee(){
+        System.out.println("----------");
+    }
 }
